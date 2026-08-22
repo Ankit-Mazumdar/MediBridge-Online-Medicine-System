@@ -1,0 +1,200 @@
+/* =====================================================================
+   MediBridge — Login Page Stylesheet
+   Relies on tokens/reset already defined in css/style.css (loaded first).
+   Role selection -> role-specific form is done with CSS :target only,
+   there is no JavaScript anywhere on this page.
+   ===================================================================== */
+
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 20px;
+  background:
+    radial-gradient(900px 480px at 12% -10%, rgba(20, 199, 194, 0.14), transparent 60%),
+    radial-gradient(900px 480px at 100% 110%, rgba(24, 99, 255, 0.14), transparent 55%),
+    var(--sky);
+}
+
+.auth-back {
+  position: fixed;
+  top: 26px;
+  left: 26px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+  background: var(--white);
+  border: 1px solid var(--line);
+  padding: 9px 16px;
+  border-radius: 999px;
+  box-shadow: var(--shadow-soft);
+  transition: color 0.25s var(--ease), border-color 0.25s var(--ease);
+}
+.auth-back:hover { color: var(--blue); border-color: var(--blue); }
+
+.auth-shell {
+  width: min(460px, 100%);
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-strong);
+  padding: 44px 40px 36px;
+}
+
+.auth-brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 26px;
+}
+.auth-brand .brand-name { font-size: 1.2rem; }
+
+/* ---------- panel visibility, controlled purely by the URL fragment ---------- */
+.auth-panel { display: none; animation: panelIn 0.35s ease; }
+#role-select { display: block; }
+
+#patient:target,
+#doctor:target,
+#admin:target { display: block; }
+
+#patient:target ~ #role-select,
+#doctor:target ~ #role-select,
+#admin:target ~ #role-select { display: none; }
+
+@keyframes panelIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------- Role selection ---------- */
+.auth-title { text-align: center; margin-bottom: 30px; }
+.auth-title h1 { font-size: 1.5rem; margin-bottom: 6px; }
+.auth-title p { color: var(--ink-soft); font-size: 0.94rem; }
+
+.role-grid { display: flex; flex-direction: column; gap: 14px; }
+
+.role-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 20px;
+  border: 1.5px solid var(--line);
+  border-radius: var(--radius-md);
+  transition: transform 0.25s var(--ease), border-color 0.25s var(--ease), box-shadow 0.25s var(--ease);
+}
+
+.role-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--blue);
+  box-shadow: var(--shadow-soft);
+}
+
+.role-icon {
+  width: 46px;
+  height: 46px;
+  border-radius: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--white);
+}
+.role-icon.patient { background: linear-gradient(135deg, var(--blue), #4f8cff); }
+.role-icon.doctor  { background: linear-gradient(135deg, var(--teal), #0aa6a1); }
+.role-icon.admin   { background: linear-gradient(135deg, var(--navy), var(--navy-soft)); }
+
+.role-text strong { display: block; font-size: 0.98rem; color: var(--navy); }
+.role-text span { font-size: 0.82rem; color: var(--ink-soft); }
+
+.role-arrow { margin-left: auto; color: var(--ink-soft); transition: transform 0.25s var(--ease), color 0.25s var(--ease); }
+.role-card:hover .role-arrow { transform: translateX(4px); color: var(--blue); }
+
+/* ---------- Sign-in forms ---------- */
+.auth-panel-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.auth-panel-head .role-icon { width: 40px; height: 40px; border-radius: 11px; }
+.auth-panel-head h1 { font-size: 1.3rem; margin-bottom: 2px; }
+.auth-panel-head span { font-size: 0.82rem; color: var(--ink-soft); }
+
+.field { margin-bottom: 18px; }
+.field label {
+  display: block;
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--navy);
+  margin-bottom: 7px;
+}
+
+.field input {
+  width: 100%;
+  padding: 13px 16px;
+  border: 1.5px solid var(--line);
+  border-radius: var(--radius-sm);
+  font-size: 0.95rem;
+  font-family: var(--font-body);
+  color: var(--ink);
+  transition: border-color 0.25s var(--ease), box-shadow 0.25s var(--ease);
+}
+.field input:focus {
+  outline: none;
+  border-color: var(--blue);
+  box-shadow: 0 0 0 4px rgba(24, 99, 255, 0.12);
+}
+
+.field-row {
+  display: flex;
+  justify-content: flex-end;
+  margin: -8px 0 22px;
+}
+.field-row a { font-size: 0.85rem; font-weight: 600; color: var(--blue); }
+.field-row a:hover { text-decoration: underline; }
+
+.auth-panel .btn-primary { margin-top: 4px; }
+
+.auth-switch {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+}
+.auth-switch a { font-weight: 700; color: var(--blue); }
+.auth-switch a:hover { text-decoration: underline; }
+
+.auth-note {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  background: var(--sky);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+}
+
+.role-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  margin-bottom: 22px;
+}
+.role-back:hover { color: var(--blue); }
+.role-back svg { width: 15px; height: 15px; }
+
+@media (max-width: 480px) {
+  .auth-shell { padding: 34px 22px 28px; }
+  .auth-back { top: 16px; left: 16px; padding: 8px 14px; font-size: 0.82rem; }
+}
+
+
