@@ -1,0 +1,220 @@
+/* =====================================================================
+   MediBridge — Doctor Registration Stylesheet
+   Builds on tokens/reset from css/style.css and the auth shell/back-link
+   patterns from css/login.css (both loaded before this file).
+   No JavaScript: gender pills use the radio:checked + label trick, and
+   file inputs use the native ::file-selector-button pseudo-element.
+   ===================================================================== */
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+
+.register-shell {
+  width: min(760px, 100%);
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-strong);
+  padding: 48px 52px 40px;
+}
+
+.register-head { text-align: center; margin-bottom: 34px; }
+.register-head .auth-brand { margin-bottom: 18px; }
+.register-head h1 { font-size: 1.65rem; margin-bottom: 8px; }
+.register-head p { color: var(--ink-soft); font-size: 0.95rem; }
+
+/* ---------- Form sections ---------- */
+.form-section { margin-bottom: 30px; }
+.form-section:last-of-type { margin-bottom: 0; }
+
+.form-section-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 0.98rem;
+  color: var(--navy);
+  margin-bottom: 18px;
+  padding-bottom: 12px;
+  border-bottom: 1px dashed var(--line);
+}
+
+.form-section-title .fs-icon {
+  width: 30px; height: 30px;
+  border-radius: 9px;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--sky);
+  color: var(--blue);
+  flex-shrink: 0;
+}
+
+.field-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px 20px;
+}
+
+.field-grid .field-full { grid-column: 1 / -1; }
+
+/* ---------- Inputs & selects (extends .field from login.css) ---------- */
+
+
+.field input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 13px 16px;
+    border: 1.5px solid var(--line);
+    border-radius: var(--radius-sm);
+    font-size: 0.95rem;
+    font-family: var(--font-body);
+    color: var(--ink);
+    background: var(--white);
+}
+
+.field input:focus {
+    outline: none;
+    border-color: var(--blue);
+    box-shadow: 0 0 0 4px rgba(24, 99, 255, 0.12);
+}
+
+
+.field select {
+  width: 100%;
+  padding: 13px 40px 13px 16px;
+  border: 1.5px solid var(--line);
+  border-radius: var(--radius-sm);
+  font-size: 0.95rem;
+  font-family: var(--font-body);
+  color: var(--ink);
+  background: var(--white) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2355647d' stroke-width='2.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") no-repeat right 14px center;
+  appearance: none;
+  -webkit-appearance: none;
+  transition: border-color 0.25s var(--ease), box-shadow 0.25s var(--ease);
+}
+.field select:focus {
+  outline: none;
+  border-color: var(--blue);
+  box-shadow: 0 0 0 4px rgba(24, 99, 255, 0.12);
+}
+
+.field-hint { display: block; font-size: 0.78rem; color: var(--ink-soft); margin-top: 6px; }
+
+/* ---------- Gender pill group (radio:checked + label, no JS) ---------- */
+.pill-group { display: flex; gap: 10px; flex-wrap: wrap; }
+.pill-group input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  width: 1px; height: 1px;
+}
+.pill-group label {
+  padding: 11px 22px;
+  border: 1.5px solid var(--line);
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  transition: all 0.25s var(--ease);
+}
+.pill-group input[type="radio"]:checked + label {
+  background: linear-gradient(135deg, var(--blue), var(--teal));
+  border-color: transparent;
+  color: var(--white);
+  box-shadow: 0 8px 18px rgba(24, 99, 255, 0.25);
+}
+.pill-group input[type="radio"]:focus-visible + label { outline: 2px solid var(--blue); outline-offset: 2px; }
+
+/* ---------- File uploads (native ::file-selector-button, no JS) ---------- */
+.upload-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px 20px;
+}
+
+.upload-box {
+  border: 1.5px dashed var(--sky-deep);
+  border-radius: var(--radius-md);
+  padding: 18px;
+  background: var(--sky);
+}
+
+.upload-box .up-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--navy);
+  margin-bottom: 10px;
+}
+.upload-box .up-label svg { color: var(--blue); flex-shrink: 0; }
+
+.upload-box input[type="file"] {
+  width: 100%;
+  font-size: 0.82rem;
+  color: var(--ink-soft);
+  font-family: var(--font-body);
+}
+
+.upload-box input[type="file"]::file-selector-button {
+  margin-right: 14px;
+  padding: 9px 18px;
+  border-radius: 999px;
+  border: none;
+  background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+  color: var(--white);
+  font-weight: 700;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease);
+}
+.upload-box input[type="file"]::file-selector-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(24, 99, 255, 0.28);
+}
+
+.upload-box .up-hint { display: block; margin-top: 8px; font-size: 0.76rem; color: var(--ink-soft); }
+
+/* ---------- Terms checkbox ---------- */
+.terms-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin: 28px 0 22px;
+  padding: 16px 18px;
+  background: var(--sky);
+  border-radius: var(--radius-sm);
+}
+.terms-row input[type="checkbox"] {
+  margin-top: 3px;
+  width: 17px; height: 17px;
+  accent-color: var(--blue);
+  flex-shrink: 0;
+}
+.terms-row label { font-size: 0.86rem; color: var(--ink-soft); line-height: 1.5; }
+.terms-row label a { color: var(--blue); font-weight: 600; }
+.terms-row label a:hover { text-decoration: underline; }
+
+.register-note {
+  text-align: center;
+  font-size: 0.82rem;
+  color: var(--ink-soft);
+  margin-top: 16px;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 640px) {
+  .register-shell { padding: 36px 24px 30px; }
+  .field-grid { grid-template-columns: 1fr; }
+  .upload-grid { grid-template-columns: 1fr; }
+  .pill-group { gap: 8px; }
+  .pill-group label { padding: 10px 18px; font-size: 0.86rem; }
+}
+
+

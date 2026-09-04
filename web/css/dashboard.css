@@ -1,0 +1,257 @@
+/* =====================================================================
+   MediBridge — Doctor Dashboard Stylesheet
+   Reuses tokens from css/style.css (--navy, --blue, --teal, --sky,
+   --white, --line, --ink, --ink-soft, --coral, --shadow-*, fonts).
+   ===================================================================== */
+
+.dash-page { background: var(--sky); min-height: 100vh; margin: 0; }
+
+/* ---------- Header: brand row + nav row, both on a navy gradient ---------- */
+.dash-header {
+  background: linear-gradient(120deg, var(--navy), var(--navy-soft) 60%, #164a86);
+  box-shadow: 0 10px 30px rgba(10, 37, 76, 0.22);
+}
+
+.dash-topline {
+  width: min(1180px, 92%);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px 0 18px;
+}
+
+.brand { display: flex; align-items: center; gap: 10px; }
+.brand .brand-name { color: var(--white); font-family: var(--font-display); font-weight: 800; font-size: 1.2rem; }
+.logo-mark { width: 38px; height: 38px; flex-shrink: 0; }
+
+.dash-user { display: flex; align-items: center; gap: 14px; }
+
+.dash-user-info { text-align: right; }
+.dash-user-info strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 0.98rem;
+  color: var(--white);
+}
+
+.status-badge {
+  display: inline-block;
+  margin-top: 4px;
+  padding: 3px 12px;
+  border-radius: 999px;
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.status-approved, .status-active { background: rgba(20, 199, 194, 0.22); color: #7cf5ee; }
+.status-pending  { background: rgba(255, 196, 79, 0.22); color: #ffd98a; }
+.status-rejected, .status-suspended { background: rgba(255, 92, 92, 0.22); color: #ffb3b3; }
+
+.dash-avatar {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--teal), var(--blue));
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 0.98rem;
+  flex-shrink: 0;
+  border: 2.5px solid rgba(255, 255, 255, 0.35);
+  transition: transform 0.25s var(--ease), border-color 0.25s var(--ease);
+}
+.dash-avatar:hover { transform: translateY(-3px) scale(1.03); border-color: var(--white); }
+
+/* ---------- Nav row ---------- */
+.dash-nav {
+  width: min(1180px, 92%);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  overflow-x: auto;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.dash-nav a {
+  padding: 15px 18px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.68);
+  white-space: nowrap;
+  border-bottom: 3px solid transparent;
+  transition: color 0.25s var(--ease), border-color 0.25s var(--ease);
+}
+
+.dash-nav a:hover { color: var(--white); }
+
+.dash-nav a.active {
+  color: var(--white);
+  border-bottom-color: var(--teal);
+}
+
+.dash-nav a.dash-logout {
+  margin-left: auto;
+  color: #ffb4b4;
+}
+.dash-nav a.dash-logout:hover { color: #ffffff; border-bottom-color: var(--coral); }
+
+/* ---------- Main content ---------- */
+.dash-main { padding: 46px 0 80px; }
+
+.dash-container { width: min(1180px, 92%); margin: 0 auto; }
+
+.dash-heading { margin-bottom: 32px; }
+.dash-heading h1 { font-family: var(--font-display); font-size: 2rem; color: var(--navy); margin-bottom: 6px; }
+.dash-heading p { color: var(--ink-soft); font-size: 0.98rem; margin: 0; }
+
+/* ---------- Stat cards ---------- */
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+  margin-bottom: 40px;
+}
+
+.stat-card {
+  position: relative;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+  transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+}
+
+.stat-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--blue), var(--teal));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s var(--ease);
+}
+
+.stat-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-strong); }
+.stat-card:hover::before { transform: scaleX(1); }
+
+.stat-icon {
+  width: 58px;
+  height: 58px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: transform 0.3s var(--ease);
+}
+.stat-card:hover .stat-icon { transform: rotate(-6deg) scale(1.06); }
+
+.stat-icon-blue  { background: var(--sky); color: var(--blue); }
+.stat-icon-teal  { background: #e6fbfa; color: var(--teal); }
+.stat-icon-navy  { background: #eef1f7; color: var(--navy); }
+
+.stat-label { display: block; font-size: 0.84rem; color: var(--ink-soft); margin-bottom: 5px; }
+.stat-value { font-family: var(--font-display); font-size: 2.1rem; color: var(--navy); line-height: 1; }
+
+/* ---------- Panel (Today's Appointments) ---------- */
+.dash-panel {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+  padding: 32px 32px 14px;
+}
+
+.dash-panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--line);
+}
+
+.dash-panel-head h2 { font-family: var(--font-display); font-size: 1.25rem; color: var(--navy); margin: 0; }
+
+.panel-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: var(--blue);
+  transition: gap 0.25s var(--ease);
+}
+.panel-link:hover { gap: 10px; }
+
+.appt-row {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 16px 10px;
+  border-bottom: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  transition: background 0.2s var(--ease), padding-left 0.2s var(--ease);
+}
+.appt-row:last-child { border-bottom: none; }
+.appt-row:hover { background: var(--sky); padding-left: 16px; }
+
+.appt-time {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 0.86rem;
+  color: var(--white);
+  background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+  padding: 8px 14px;
+  border-radius: 999px;
+  flex-shrink: 0;
+  width: 92px;
+  text-align: center;
+}
+
+.appt-name { flex: 1; font-weight: 700; color: var(--navy); font-size: 0.98rem; }
+
+.btn-view {
+  padding: 9px 22px;
+  border-radius: 999px;
+  border: 1.5px solid var(--line);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--navy);
+  transition: all 0.25s var(--ease);
+  flex-shrink: 0;
+}
+.btn-view:hover { background: var(--blue); border-color: var(--blue); color: var(--white); transform: translateY(-2px); }
+
+.appt-empty {
+  text-align: center;
+  padding: 36px 0;
+  color: var(--ink-soft);
+  font-size: 0.92rem;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+  .stat-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 640px) {
+  .dash-topline { padding: 18px 0 14px; flex-wrap: wrap; gap: 12px; }
+  .dash-user-info { text-align: left; }
+  .stat-grid { grid-template-columns: 1fr; }
+  .appt-row { flex-wrap: wrap; }
+  .appt-name { width: 100%; order: 3; }
+  .dash-panel { padding: 24px 20px 10px; }
+}

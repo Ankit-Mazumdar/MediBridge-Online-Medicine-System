@@ -11,6 +11,11 @@
 <link rel="stylesheet" href="css/logins.css">
 </head>
 <body class="auth-page">
+    
+<%
+    String error = request.getParameter("error");
+%>
+
 
 <a href="index.jsp" class="auth-back">
   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
@@ -89,6 +94,38 @@
         <span>Sign in to continue to MediBridge</span>
       </div>
     </div>
+      
+<!--      ---------------------------------------------------->
+
+<% if ("Pending".equals(error)) { %>
+
+    <p style="color: #b45309; background: #fff7ed; padding: 12px; border-radius: 8px; margin-bottom: 15px;">
+        Your registration is still pending. Please wait for admin approval.
+    </p>
+
+<% } else if ("Rejected".equals(error)) { %>
+
+    <p style="color: #b91c1c; background: #fef2f2; padding: 12px; border-radius: 8px; margin-bottom: 15px;">
+        Your doctor registration application has been rejected.
+    </p>
+
+<% } else if ("NotFound".equals(error)) { %>
+
+    <p style="color: #b91c1c; background: #fef2f2; padding: 12px; border-radius: 8px; margin-bottom: 15px;">
+        Email address not found. Please check your email or register as a doctor.
+    </p>
+
+<% } else if ("Invalid".equals(error)) { %>
+
+    <p style="color: #b91c1c; background: #fef2f2; padding: 12px; border-radius: 8px; margin-bottom: 15px;">
+        Invalid email or password.
+    </p>
+
+<% } %>
+
+<!---------------------------------------------->
+      
+
 
     <form action="DoctorLoginServlet" method="post">
       <input type="hidden" name="role" value="doctor">

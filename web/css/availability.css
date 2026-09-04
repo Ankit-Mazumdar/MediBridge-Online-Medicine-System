@@ -1,0 +1,469 @@
+/* ================================
+   MediBridge Availability
+   ================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f2f8fc;
+    color: #172b4d;
+    min-height: 100vh;
+}
+
+
+/* ================================
+   Header
+   ================================ */
+
+.top-header {
+    min-height: 76px;
+    padding: 0 6%;
+    background: linear-gradient(110deg, #082b57, #0759a5);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: white;
+    box-shadow: 0 4px 18px rgba(8, 43, 87, 0.15);
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.brand-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #16a6a1, #3bb8d1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.brand h2 {
+    font-size: 22px;
+    letter-spacing: 0.2px;
+}
+
+.brand span {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.78);
+}
+
+.doctor-info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.logout-btn {
+    text-decoration: none;
+    color: white;
+    background: #e87575;
+    padding: 9px 18px;
+    border-radius: 20px;
+    transition: 0.25s ease;
+}
+
+.logout-btn:hover {
+    background: #d95f5f;
+    transform: translateY(-1px);
+}
+
+
+/* ================================
+   Main Container
+   ================================ */
+
+.availability-container {
+    width: 88%;
+    max-width: 1200px;
+    margin: 40px auto;
+}
+
+
+/* ================================
+   Page Heading
+   ================================ */
+
+.page-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 28px;
+}
+
+.page-heading h1 {
+    color: #082b57;
+    font-size: 31px;
+    margin-bottom: 7px;
+}
+
+.page-heading p {
+    color: #718096;
+    font-size: 15px;
+}
+
+.heading-icon {
+    width: 54px;
+    height: 54px;
+    border-radius: 16px;
+    background: #e0f3f8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
+}
+
+
+/* ================================
+   Messages
+   ================================ */
+
+.message {
+    padding: 13px 18px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.success-message {
+    background: #e4f7f3;
+    color: #087b70;
+    border: 1px solid #b9e8df;
+}
+
+.error-message {
+    background: #fff0f0;
+    color: #b84444;
+    border: 1px solid #f2c7c7;
+}
+
+
+/* ================================
+   Grid
+   ================================ */
+
+.content-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+}
+
+
+/* ================================
+   Cards
+   ================================ */
+
+.availability-card {
+    background: white;
+    border: 1px solid #dce7ef;
+    border-radius: 18px;
+    padding: 27px;
+    box-shadow: 0 7px 25px rgba(22, 65, 100, 0.07);
+    transition: 0.3s ease;
+}
+
+.availability-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(22, 65, 100, 0.11);
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 25px;
+}
+
+.card-header h2 {
+    color: #082b57;
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+.card-header p {
+    color: #7a8797;
+    font-size: 13px;
+}
+
+.card-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 21px;
+    font-weight: bold;
+}
+
+.blue-icon {
+    background: #e5f1ff;
+    color: #0874c9;
+}
+
+.teal-icon {
+    background: #e2f7f3;
+    color: #078d82;
+}
+
+
+/* ================================
+   Form
+   ================================ */
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #263b59;
+}
+
+.form-group select,
+.form-group input {
+    width: 100%;
+    height: 46px;
+    padding: 0 13px;
+    border: 1px solid #ccd9e4;
+    border-radius: 9px;
+    background: white;
+    color: #243b53;
+    font-size: 14px;
+    outline: none;
+    transition: 0.25s ease;
+}
+
+.form-group select:focus,
+.form-group input:focus {
+    border-color: #1684d4;
+    box-shadow: 0 0 0 3px rgba(22, 132, 212, 0.11);
+}
+
+.form-group small {
+    display: block;
+    margin-top: 7px;
+    color: #8794a5;
+    font-size: 12px;
+}
+
+.time-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+
+/* ================================
+   Save Button
+   ================================ */
+
+.save-btn {
+    width: 100%;
+    border: none;
+    border-radius: 10px;
+    padding: 13px;
+    background: linear-gradient(100deg, #0877c9, #079b9a);
+    color: white;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.25s ease;
+}
+
+.save-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 7px 18px rgba(8, 119, 201, 0.22);
+}
+
+
+/* ================================
+   Empty State
+   ================================ */
+
+.empty-state {
+    text-align: center;
+    padding: 45px 20px;
+}
+
+.empty-icon {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 15px;
+    border-radius: 16px;
+    background: #edf7fb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 27px;
+}
+
+.empty-state h3 {
+    color: #263b59;
+    font-size: 16px;
+    margin-bottom: 7px;
+}
+
+.empty-state p {
+    color: #8794a5;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+
+/* ================================
+   Schedule List
+   ================================ */
+
+.schedule-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.schedule-item {
+    border: 1px solid #e0e9f0;
+    border-radius: 12px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    transition: 0.25s ease;
+}
+
+.schedule-item:hover {
+    background: #f7fbfd;
+    border-color: #c8dfea;
+}
+
+.schedule-day {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.day-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #0a9b95;
+}
+
+.schedule-day h3 {
+    color: #17375e;
+    font-size: 15px;
+    margin-bottom: 4px;
+}
+
+.schedule-day p {
+    color: #718096;
+    font-size: 13px;
+}
+
+.schedule-details {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.duration-badge {
+    background: #e7f3ff;
+    color: #0872bf;
+    padding: 6px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.delete-btn {
+    text-decoration: none;
+    color: #c45252;
+    border: 1px solid #efcccc;
+    background: #fff7f7;
+    padding: 6px 11px;
+    border-radius: 7px;
+    font-size: 12px;
+    font-weight: 600;
+    transition: 0.2s ease;
+}
+
+.delete-btn:hover {
+    background: #ffeaea;
+    border-color: #e7b4b4;
+}
+
+
+/* ================================
+   Responsive
+   ================================ */
+
+@media (max-width: 850px) {
+
+    .content-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .top-header {
+        padding: 15px 5%;
+    }
+
+    .availability-container {
+        width: 92%;
+    }
+}
+
+
+@media (max-width: 600px) {
+
+    .top-header {
+        align-items: flex-start;
+        gap: 15px;
+        flex-direction: column;
+    }
+
+    .doctor-info {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .page-heading h1 {
+        font-size: 25px;
+    }
+
+    .availability-card {
+        padding: 20px;
+    }
+
+    .time-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .schedule-item {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .schedule-details {
+        width: 100%;
+        justify-content: space-between;
+    }
+}

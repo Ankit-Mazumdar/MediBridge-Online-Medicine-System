@@ -3,3 +3,5 @@
 /nbproject/private/
 /.nb-gradle/
 *.class
+
+src/java/util/DBConnection.java
