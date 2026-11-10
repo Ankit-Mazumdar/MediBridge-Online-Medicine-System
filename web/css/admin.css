@@ -1,0 +1,258 @@
+/* ================================
+   MediBridge Admin Dashboard
+   ================================ */
+
+:root {
+    --admin-navy: #102a43;
+    --admin-blue: #1863ff;
+    --admin-teal: #14c7c2;
+    --admin-bg: #f4f7fb;
+    --admin-white: #ffffff;
+    --admin-text: #172b4d;
+    --admin-muted: #627d98;
+    --admin-border: #e4eaf2;
+    --admin-shadow: 0 8px 28px rgba(16, 42, 67, 0.07);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body.admin-page {
+    margin: 0;
+    background: var(--admin-bg);
+    color: var(--admin-text);
+    font-family: 'Inter', sans-serif;
+}
+
+/* Top navigation */
+
+.admin-topbar {
+    min-height: 76px;
+    padding: 16px 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    background: var(--admin-white);
+    border-bottom: 1px solid var(--admin-border);
+}
+
+.admin-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.admin-brand-mark {
+    width: 42px;
+    height: 42px;
+    border-radius: 13px;
+    display: grid;
+    place-items: center;
+    color: white;
+    font-size: 21px;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--admin-blue), var(--admin-teal));
+}
+
+.admin-brand h2 {
+    margin: 0;
+    font-family: 'Manrope', sans-serif;
+    font-size: 21px;
+    font-weight: 800;
+    letter-spacing: -0.6px;
+}
+
+.admin-brand span {
+    display: block;
+    margin-top: 3px;
+    color: var(--admin-muted);
+    font-size: 12px;
+}
+
+.admin-logout {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 17px;
+    border: 1px solid var(--admin-border);
+    border-radius: 10px;
+    background: white;
+    color: var(--admin-navy);
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: 0.2s ease;
+}
+
+.admin-logout:hover {
+    border-color: var(--admin-blue);
+    color: var(--admin-blue);
+    background: #f5f8ff;
+}
+
+/* Main content */
+
+.admin-container {
+    width: min(1200px, 90%);
+    margin: 0 auto;
+    padding: 38px 0 55px;
+}
+
+.admin-welcome {
+    margin-bottom: 30px;
+}
+
+.admin-eyebrow {
+    margin: 0 0 9px;
+    color: var(--admin-blue);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+.admin-welcome h1 {
+    margin: 0;
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(27px, 4vw, 36px);
+    font-weight: 800;
+    letter-spacing: -1.2px;
+}
+
+.admin-welcome p {
+    margin: 10px 0 0;
+    color: var(--admin-muted);
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.admin-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    margin-top: 15px;
+    padding: 7px 11px;
+    border-radius: 20px;
+    background: #e9f9ef;
+    color: #16803c;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+/* Dashboard section heading */
+
+.admin-section-heading {
+    margin: 34px 0 17px;
+    font-family: 'Manrope', sans-serif;
+    font-size: 19px;
+    font-weight: 800;
+}
+
+/* Dashboard cards */
+
+.admin-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.admin-card {
+    position: relative;
+    min-height: 205px;
+    padding: 24px;
+    overflow: hidden;
+    border: 1px solid var(--admin-border);
+    border-radius: 17px;
+    background: var(--admin-white);
+    box-shadow: var(--admin-shadow);
+    transition: transform 0.2s ease, box-shadow 0.2s ease,
+                border-color 0.2s ease;
+}
+
+.admin-card:hover {
+    transform: translateY(-4px);
+    border-color: #c8d9ff;
+    box-shadow: 0 14px 34px rgba(24, 99, 255, 0.10);
+}
+
+.admin-card-icon {
+    width: 47px;
+    height: 47px;
+    display: grid;
+    place-items: center;
+    margin-bottom: 20px;
+    border-radius: 13px;
+    background: #edf3ff;
+    color: var(--admin-blue);
+    font-size: 22px;
+}
+
+.admin-card h3 {
+    margin: 0 0 9px;
+    font-family: 'Manrope', sans-serif;
+    font-size: 16px;
+    font-weight: 800;
+}
+
+.admin-card p {
+    margin: 0;
+    color: var(--admin-muted);
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.admin-card-link {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+}
+
+.admin-card-link:focus-visible,
+.admin-logout:focus-visible {
+    outline: 3px solid rgba(24, 99, 255, 0.35);
+    outline-offset: 3px;
+}
+
+/* Footer */
+
+.admin-footer {
+    padding: 20px;
+    border-top: 1px solid var(--admin-border);
+    color: var(--admin-muted);
+    text-align: center;
+    font-size: 12px;
+}
+
+/* Responsive layout */
+
+@media (max-width: 900px) {
+    .admin-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 560px) {
+    .admin-topbar {
+        padding: 14px 5%;
+    }
+
+    .admin-brand h2 {
+        font-size: 18px;
+    }
+
+    .admin-container {
+        width: 92%;
+        padding-top: 28px;
+    }
+
+    .admin-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .admin-card {
+        min-height: auto;
+    }
+}

@@ -208,7 +208,7 @@
     <p>If you or someone near you is facing a medical emergency, don't wait.
        MediBridge routes you straight to emergency assistance and the nearest
        available responders.</p>
-    <a href="emergency.jsp" class="btn btn-emergency">Emergency Help</a>
+    <a href="emergency/emergency.jsp" class="btn btn-emergency">Emergency Help</a>
     <p class="emergency-note">Available 24 hours a day, 7 days a week.</p>
   </div>
 </section>

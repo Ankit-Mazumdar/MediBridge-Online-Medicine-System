@@ -1,0 +1,920 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+
+/* ================================================================
+   MediBridge - Patient Dashboard
+   ================================================================ */
+
+.patient-dash-page {
+    background: var(--sky);
+    min-height: 100vh;
+    margin: 0;
+}
+
+
+/* ================================================================
+   HEADER
+   ================================================================ */
+
+.patient-dash-header {
+    background: linear-gradient(
+        120deg,
+        #073b66,
+        #0b6384 55%,
+        #0b8f91
+    );
+
+    box-shadow:
+        0 10px 30px rgba(7, 59, 102, 0.20);
+}
+
+.patient-dash-topline {
+    width: min(1180px, 92%);
+    margin: 0 auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 22px 0 18px;
+}
+
+
+/* Brand */
+
+.patient-dash-header .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.patient-dash-header .brand-name {
+    color: var(--white);
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.2rem;
+}
+
+.patient-dash-header .logo-mark {
+    width: 38px;
+    height: 38px;
+    flex-shrink: 0;
+}
+
+
+/* Patient information */
+
+.patient-dash-user {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.patient-dash-user-info {
+    text-align: right;
+}
+
+.patient-dash-user-info strong {
+    display: block;
+
+    font-family: var(--font-display);
+    font-size: 0.98rem;
+
+    color: var(--white);
+}
+
+.patient-dash-user-info span {
+    display: block;
+
+    margin-top: 3px;
+
+    color: #bceff0;
+
+    font-size: 0.70rem;
+    font-weight: 700;
+
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+
+/* Avatar */
+
+.patient-dash-avatar {
+    width: 46px;
+    height: 46px;
+
+    border-radius: 50%;
+
+    background: linear-gradient(
+        135deg,
+        #20cfc6,
+        #2f8cff
+    );
+
+    color: var(--white);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 0.98rem;
+
+    flex-shrink: 0;
+
+    border: 2.5px solid rgba(255, 255, 255, 0.38);
+
+    transition:
+        transform 0.25s var(--ease),
+        border-color 0.25s var(--ease);
+}
+
+.patient-dash-avatar:hover {
+    transform: translateY(-3px) scale(1.03);
+    border-color: var(--white);
+}
+
+
+/* ================================================================
+   NAVIGATION
+   ================================================================ */
+
+.patient-dash-nav {
+    width: min(1180px, 92%);
+    margin: 0 auto;
+
+    display: flex;
+    align-items: center;
+
+    gap: 4px;
+
+    overflow-x: auto;
+
+    border-top: 1px solid rgba(255, 255, 255, 0.13);
+}
+
+.patient-dash-nav a {
+    padding: 15px 17px;
+
+    font-size: 0.88rem;
+    font-weight: 600;
+
+    color: rgba(255, 255, 255, 0.70);
+
+    white-space: nowrap;
+
+    border-bottom: 3px solid transparent;
+
+    transition:
+        color 0.25s var(--ease),
+        border-color 0.25s var(--ease);
+}
+
+.patient-dash-nav a:hover {
+    color: var(--white);
+}
+
+.patient-dash-nav a.active {
+    color: var(--white);
+    border-bottom-color: #65e5df;
+}
+
+.patient-dash-nav a.patient-dash-logout {
+    margin-left: auto;
+    color: #ffd0d0;
+}
+
+.patient-dash-nav a.patient-dash-logout:hover {
+    color: var(--white);
+    border-bottom-color: #ff8f8f;
+}
+
+
+/* ================================================================
+   MAIN
+   ================================================================ */
+
+.patient-dash-main {
+    padding: 46px 0 80px;
+}
+
+.patient-dash-container {
+    width: min(1180px, 92%);
+    margin: 0 auto;
+}
+
+
+/* Heading */
+
+.patient-dash-heading {
+    margin-bottom: 32px;
+}
+
+.patient-welcome-label {
+    display: inline-block;
+
+    margin-bottom: 7px;
+
+    color: var(--teal);
+
+    font-size: 0.76rem;
+    font-weight: 800;
+
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.patient-dash-heading h1 {
+    font-family: var(--font-display);
+
+    font-size: 2rem;
+
+    color: var(--navy);
+
+    margin: 0 0 6px;
+}
+
+.patient-dash-heading p {
+    color: var(--ink-soft);
+    font-size: 0.98rem;
+    margin: 0;
+}
+
+
+/* ================================================================
+   STATISTICS CARDS
+   ================================================================ */
+
+.patient-stat-grid {
+    display: grid !important;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr)) !important;
+
+    gap: 26px !important;
+
+    width: 100%;
+
+    margin: 32px 0 48px;
+}
+
+
+/* ================================================================
+   STAT CARD
+   ================================================================ */
+
+.patient-stat-grid .patient-stat-card {
+    position: relative;
+
+    display: flex !important;
+    align-items: center !important;
+
+    width: 100% !important;
+    min-width: 0;
+
+    min-height: 155px !important;
+
+    padding: 28px 30px !important;
+
+    box-sizing: border-box;
+
+    background: #ffffff !important;
+
+    border: 1px solid #dfe8ee !important;
+
+    border-radius: 16px !important;
+
+    color: #17212b !important;
+
+    text-decoration: none !important;
+
+    box-shadow:
+        0 5px 18px rgba(20, 50, 70, 0.10) !important;
+
+    overflow: hidden;
+
+    opacity: 1 !important;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease;
+}
+
+
+/* ================================================================
+   HOVER TOP LINE
+   ================================================================ */
+
+.patient-stat-grid .patient-stat-card::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 4px;
+
+    background: linear-gradient(
+        90deg,
+        #168acb,
+        #20b6a6
+    );
+
+    transform: scaleX(0);
+
+    transform-origin: left;
+
+    transition:
+        transform 0.25s ease;
+}
+
+
+/* Hover card */
+
+.patient-stat-grid .patient-stat-card:hover {
+    transform: translateY(-4px) !important;
+
+    border-color: #cbdce6 !important;
+
+    box-shadow:
+        0 12px 28px rgba(20, 50, 70, 0.16) !important;
+}
+
+.patient-stat-grid .patient-stat-card:hover::before {
+    transform: scaleX(1);
+}
+
+
+/* ================================================================
+   STAT ICON
+   ================================================================ */
+
+.patient-stat-grid .patient-stat-icon {
+    width: 52px !important;
+    height: 52px !important;
+
+    min-width: 52px !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    margin: 0 20px 0 0 !important;
+
+    border-radius: 14px !important;
+
+    font-size: 23px;
+
+    flex-shrink: 0;
+}
+
+
+/* Blue */
+
+.patient-stat-icon-blue {
+    background: #eaf4ff !important;
+    color: #287df2 !important;
+}
+
+
+/* Teal */
+
+.patient-stat-icon-teal {
+    background: #e8faf7 !important;
+    color: #16a99f !important;
+}
+
+
+/* Purple */
+
+.patient-stat-icon-purple {
+    background: #f2edff !important;
+    color: #8067d8 !important;
+}
+
+
+/* ================================================================
+   STAT CONTENT
+   ================================================================ */
+
+.patient-stat-grid .patient-stat-content {
+    flex: 1 1 auto !important;
+
+    min-width: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    gap: 7px;
+}
+
+
+/* Card heading */
+
+.patient-stat-grid .patient-stat-label {
+    display: block !important;
+
+    margin: 0 !important;
+
+    color: #26343e !important;
+
+    font-size: 15px !important;
+
+    font-weight: 800 !important;
+
+    line-height: 1.3;
+}
+
+
+/* Sub text */
+
+.patient-stat-grid .patient-stat-description {
+    display: block !important;
+
+    margin: 0 !important;
+
+    color: #7a8790 !important;
+
+    font-size: 13px !important;
+
+    font-weight: 400 !important;
+
+    line-height: 1.45;
+}
+
+
+/* Number */
+
+.patient-stat-grid .patient-stat-value {
+    display: block !important;
+
+    margin: 2px 0 0 !important;
+
+    color: #101820 !important;
+
+    font-size: 28px !important;
+
+    font-weight: 800 !important;
+
+    line-height: 1;
+}
+
+
+/* ================================================================
+   ARROW
+   ================================================================ */
+
+.patient-stat-grid .patient-stat-arrow {
+    display: flex !important;
+
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    margin-left: 16px;
+
+    color: #71808a !important;
+
+    font-size: 20px;
+
+    font-weight: 600;
+
+    transition:
+        transform 0.25s ease,
+        color 0.25s ease;
+}
+
+.patient-stat-grid .patient-stat-link:hover
+.patient-stat-arrow {
+    color: #168acb !important;
+
+    transform: translateX(5px);
+}
+
+
+/* Clickable cards */
+
+.patient-stat-grid .patient-stat-link {
+    cursor: pointer;
+
+    -webkit-tap-highlight-color: transparent;
+}
+
+
+/* Non-clickable card */
+
+.patient-stat-grid
+.patient-stat-card:not(.patient-stat-link) {
+    cursor: default;
+}
+
+
+/* ================================================================
+   CONTENT GRID
+   ================================================================ */
+
+.patient-content-grid {
+    display: grid;
+
+    grid-template-columns: 1.25fr 0.75fr;
+
+    gap: 22px;
+}
+
+
+/* ================================================================
+   PANELS
+   ================================================================ */
+
+.patient-dash-panel {
+    background: var(--white);
+
+    border: 1px solid var(--line);
+
+    border-radius: var(--radius-lg);
+
+    box-shadow: var(--shadow-soft);
+
+    padding: 30px;
+
+    transition:
+        box-shadow 0.3s var(--ease);
+}
+
+.patient-dash-panel:hover {
+    box-shadow: var(--shadow-strong);
+}
+
+
+/* Panel heading */
+
+.patient-panel-head {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    margin-bottom: 20px;
+
+    padding-bottom: 19px;
+
+    border-bottom: 1px solid var(--line);
+}
+
+.patient-panel-head h2 {
+    font-family: var(--font-display);
+
+    font-size: 1.18rem;
+
+    color: var(--navy);
+
+    margin: 0 0 4px;
+}
+
+.patient-panel-head p {
+    color: var(--ink-soft);
+
+    font-size: 0.80rem;
+
+    margin: 0;
+}
+
+
+/* Panel link */
+
+.patient-panel-link {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 5px;
+
+    font-size: 0.84rem;
+
+    font-weight: 700;
+
+    color: var(--blue);
+
+    white-space: nowrap;
+
+    transition:
+        gap 0.25s var(--ease);
+}
+
+.patient-panel-link:hover {
+    gap: 9px;
+}
+
+
+/* ================================================================
+   EMPTY APPOINTMENT STATE
+   ================================================================ */
+
+.patient-empty-state {
+    min-height: 245px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    padding: 25px 15px;
+}
+
+.patient-empty-icon {
+    width: 58px;
+    height: 58px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 15px;
+
+    border-radius: 18px;
+
+    background: linear-gradient(
+        135deg,
+        #e7f4ff,
+        #e3faf8
+    );
+
+    color: #159c9a;
+
+    font-size: 1.35rem;
+    font-weight: 800;
+}
+
+.patient-empty-state strong {
+    color: var(--navy);
+
+    font-family: var(--font-display);
+
+    font-size: 0.98rem;
+
+    margin-bottom: 7px;
+}
+
+.patient-empty-state span {
+    max-width: 330px;
+
+    color: var(--ink-soft);
+
+    font-size: 0.82rem;
+
+    line-height: 1.5;
+
+    margin-bottom: 20px;
+}
+
+
+/* ================================================================
+   ACTION BUTTON
+   ================================================================ */
+
+.patient-action-btn {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 10px 19px;
+
+    border-radius: 999px;
+
+    background: linear-gradient(
+        135deg,
+        #287df2,
+        #16bcb5
+    );
+
+    color: var(--white);
+
+    font-size: 0.82rem;
+    font-weight: 700;
+
+    box-shadow:
+        0 7px 18px rgba(40, 125, 242, 0.20);
+
+    transition:
+        transform 0.25s var(--ease),
+        box-shadow 0.25s var(--ease);
+}
+
+.patient-action-btn:hover {
+    color: var(--white);
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 10px 22px rgba(40, 125, 242, 0.27);
+}
+
+
+/* ================================================================
+   HEALTH OVERVIEW
+   ================================================================ */
+
+.health-info-grid {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 13px;
+
+    margin-bottom: 22px;
+}
+
+.health-info-item {
+    padding: 14px;
+
+    border: 1px solid var(--line);
+
+    border-radius: var(--radius-sm);
+
+    background: #f9fcff;
+}
+
+.health-info-item span {
+    display: block;
+
+    color: var(--ink-soft);
+
+    font-size: 0.73rem;
+
+    margin-bottom: 5px;
+}
+
+.health-info-item strong {
+    display: block;
+
+    color: var(--navy);
+
+    font-size: 0.86rem;
+
+    font-weight: 700;
+
+    word-break: break-word;
+}
+
+
+/* Profile link */
+
+.health-profile-link {
+    display: inline-block;
+
+    color: var(--blue);
+
+    font-size: 0.84rem;
+
+    font-weight: 700;
+
+    transition:
+        transform 0.2s var(--ease);
+}
+
+.health-profile-link:hover {
+    transform: translateX(3px);
+}
+
+
+/* ================================================================
+   DOCTOR SPECIALIZATION
+   ================================================================ */
+
+.doctor-specialization {
+    display: block;
+
+    margin-top: 5px;
+
+    color: #68798a;
+
+    font-size: 13px;
+
+    font-weight: 500;
+}
+
+
+/* ================================================================
+   RESPONSIVE
+   ================================================================ */
+
+@media (max-width: 950px) {
+
+    .patient-content-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .patient-stat-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr)) !important;
+    }
+
+}
+
+
+@media (max-width: 640px) {
+
+    .patient-dash-topline {
+        padding: 18px 0 14px;
+
+        flex-wrap: wrap;
+
+        gap: 12px;
+    }
+
+    .patient-dash-user-info {
+        text-align: left;
+    }
+
+    .patient-stat-grid {
+        grid-template-columns: 1fr !important;
+
+        gap: 18px !important;
+    }
+
+    .patient-stat-grid .patient-stat-card {
+        min-height: 135px !important;
+
+        padding: 22px !important;
+    }
+
+    .patient-dash-main {
+        padding-top: 32px;
+    }
+
+    .patient-dash-heading h1 {
+        font-size: 1.65rem;
+    }
+
+    .patient-dash-panel {
+        padding: 24px 20px;
+    }
+
+    .patient-panel-head {
+        align-items: flex-start;
+    }
+
+    .health-info-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+
+@media (max-width: 430px) {
+
+    .patient-dash-user-info {
+        display: none;
+    }
+
+    .patient-dash-avatar {
+        width: 42px;
+        height: 42px;
+    }
+
+    .patient-stat-grid .patient-stat-card {
+        padding: 20px !important;
+    }
+
+    .patient-stat-grid .patient-stat-icon {
+        width: 45px !important;
+        height: 45px !important;
+
+        min-width: 45px !important;
+
+        margin-right: 14px !important;
+    }
+
+    .patient-stat-grid .patient-stat-label {
+        font-size: 14px !important;
+    }
+
+    .patient-stat-grid .patient-stat-description {
+        font-size: 12px !important;
+    }
+
+    .patient-stat-grid .patient-stat-value {
+        font-size: 24px !important;
+    }
+
+}

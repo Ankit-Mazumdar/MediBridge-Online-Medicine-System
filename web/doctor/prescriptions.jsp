@@ -311,14 +311,7 @@ if (prescriptions == null) {
                     </span>
 
 
-                    <% if (prescription.getPrescriptionFile() != null &&
-                           !prescription.getPrescriptionFile().trim().isEmpty()) { %>
 
-                        <span class="file-badge">
-                            File Attached
-                        </span>
-
-                    <% } %>
 
 
                 </div>

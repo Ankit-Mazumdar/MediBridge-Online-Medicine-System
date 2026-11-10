@@ -1,32 +1,36 @@
 package model;
 
+import java.sql.Date;
+
 public class DoctorAvailability {
 
     private int availabilityId;
     private String doctorId;
     private String dayOfWeek;
+    private Date availabilityDate;
     private String startTime;
     private String endTime;
     private int slotDuration;
     private String status;
 
-    // Default constructor
     public DoctorAvailability() {
     }
 
-    // Constructor without ID and status
-    public DoctorAvailability(String doctorId, String dayOfWeek,
-                              String startTime, String endTime,
+    // Constructor for creating new date-based availability
+    public DoctorAvailability(String doctorId,
+                              String dayOfWeek,
+                              Date availabilityDate,
+                              String startTime,
+                              String endTime,
                               int slotDuration) {
 
         this.doctorId = doctorId;
         this.dayOfWeek = dayOfWeek;
+        this.availabilityDate = availabilityDate;
         this.startTime = startTime;
         this.endTime = endTime;
         this.slotDuration = slotDuration;
     }
-
-    // Getters and Setters
 
     public int getAvailabilityId() {
         return availabilityId;
@@ -50,6 +54,14 @@ public class DoctorAvailability {
 
     public void setDayOfWeek(String dayOfWeek) {
         this.dayOfWeek = dayOfWeek;
+    }
+
+    public Date getAvailabilityDate() {
+        return availabilityDate;
+    }
+
+    public void setAvailabilityDate(Date availabilityDate) {
+        this.availabilityDate = availabilityDate;
     }
 
     public String getStartTime() {

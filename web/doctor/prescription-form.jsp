@@ -224,7 +224,7 @@
 
         <form action="<%= request.getContextPath() %>/PrescriptionServlet"
               method="post"
-              enctype="multipart/form-data">
+              >
 
 
             <!-- APPOINTMENT ID -->
@@ -306,37 +306,7 @@ Duration: 5 days"
             </div>
 
 
-            <!-- ================= UPLOAD ================= -->
-
-            <div class="form-group">
-
-                <label>
-                    Handwritten Prescription
-                </label>
-
-                <div class="upload-box">
-
-                    <div class="upload-icon">
-                        📄
-                    </div>
-
-                    <span class="upload-title">
-                        Add prescription image or PDF
-                    </span>
-
-                    <span class="upload-description">
-                        Upload a scanned handwritten prescription.
-                        Supported formats: JPG, JPEG, PNG and PDF.
-                    </span>
-
-                    <input type="file"
-                           id="prescriptionFile"
-                           name="prescriptionFile"
-                           accept=".jpg,.jpeg,.png,.pdf">
-
-                </div>
-
-            </div>
+          
 
 
             <!-- ================= PRIVACY ================= -->

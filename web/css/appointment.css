@@ -844,3 +844,59 @@ body {
         width: 100%;
     }
 }
+
+
+/* APPOINTMENT ACTIONS */
+
+.appointment-actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.appointment-actions form {
+    margin: 0;
+}
+
+.btn-prescription,
+.btn-consultation {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 19px;
+    border-radius: 9px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: 0.2s ease;
+}
+
+/* RED PRESCRIPTION BUTTON */
+
+.btn-prescription {
+    background: #dc2626;
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(220, 38, 38, 0.15);
+}
+
+.btn-prescription:hover {
+    background: #b91c1c;
+    transform: translateY(-2px);
+}
+
+/* CONSULTATION BUTTON */
+
+.btn-consultation {
+    background: #0f766e;
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(15, 118, 110, 0.15);
+}
+
+.btn-consultation:hover {
+    background: #115e59;
+    transform: translateY(-2px);
+}

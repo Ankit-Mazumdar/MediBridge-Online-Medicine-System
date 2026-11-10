@@ -11,8 +11,12 @@ public class Prescription {
     private String diagnosis;
     private String medicines;
     private String instructions;
-    private String prescriptionFile;
+   
     private Timestamp createdAt;
+    
+    
+    private String doctorName;
+private String specialization;
 
     // Default constructor
     public Prescription() {
@@ -76,13 +80,7 @@ public class Prescription {
         this.instructions = instructions;
     }
 
-    public String getPrescriptionFile() {
-        return prescriptionFile;
-    }
 
-    public void setPrescriptionFile(String prescriptionFile) {
-        this.prescriptionFile = prescriptionFile;
-    }
 
     public Timestamp getCreatedAt() {
         return createdAt;
@@ -91,4 +89,20 @@ public class Prescription {
     public void setCreatedAt(Timestamp createdAt) {
         this.createdAt = createdAt;
     }
+    
+    public String getDoctorName() {
+    return doctorName;
+}
+
+public void setDoctorName(String doctorName) {
+    this.doctorName = doctorName;
+}
+
+public String getSpecialization() {
+    return specialization;
+}
+
+public void setSpecialization(String specialization) {
+    this.specialization = specialization;
+}
 }

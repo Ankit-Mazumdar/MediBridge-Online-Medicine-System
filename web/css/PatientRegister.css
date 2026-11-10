@@ -1,0 +1,436 @@
+/*
+    MediBridge — Patient Registration
+*/
+
+
+/* =========================================================
+   PAGE BACKGROUND
+   ========================================================= */
+
+body.auth-page {
+    min-height: 100vh !important;
+    padding: 50px 20px !important;
+
+    display: flex !important;
+    align-items: flex-start !important;
+    justify-content: center !important;
+
+    background: #eaf3ff !important;
+}
+
+
+/* =========================================================
+   REGISTRATION CARD
+   ========================================================= */
+
+.register-shell {
+    width: 760px !important;
+    max-width: 100% !important;
+
+    margin: 20px auto !important;
+    padding: 42px !important;
+
+    background: #ffffff !important;
+
+    border: 1px solid #cbd8ea !important;
+    border-radius: 24px !important;
+
+    box-shadow: 0 20px 50px rgba(10, 37, 64, 0.15) !important;
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.register-head {
+    text-align: center !important;
+    margin-bottom: 32px !important;
+}
+
+.register-head h1 {
+    margin: 0 0 8px !important;
+
+    font-family: 'Manrope', Arial, sans-serif !important;
+
+    font-size: 1.8rem !important;
+    font-weight: 800 !important;
+
+    color: #0a2540 !important;
+}
+
+.register-head p {
+    margin: 0 !important;
+
+    font-family: 'Inter', Arial, sans-serif !important;
+
+    font-size: 0.95rem !important;
+
+    color: #607089 !important;
+}
+
+
+/* =========================================================
+   ERROR
+   ========================================================= */
+
+.register-shell .error-message {
+    width: 100% !important;
+
+    margin: 0 0 28px !important;
+    padding: 15px 18px !important;
+
+    background: #fff1f2 !important;
+
+    border: 1px solid #fca5a5 !important;
+    border-left: 5px solid #dc2626 !important;
+
+    border-radius: 10px !important;
+
+    color: #991b1b !important;
+
+    font-family: 'Inter', Arial, sans-serif !important;
+
+    font-size: 0.9rem !important;
+    font-weight: 500 !important;
+
+    line-height: 1.5 !important;
+
+    box-sizing: border-box !important;
+}
+
+.register-shell .error-message a {
+    color: #075985 !important;
+    font-weight: 800 !important;
+    text-decoration: none !important;
+}
+
+.register-shell .error-message a:hover {
+    text-decoration: underline !important;
+}
+
+
+/* =========================================================
+   SECTION
+   ========================================================= */
+
+.register-shell .form-section {
+    width: 100% !important;
+
+    margin: 0 0 24px !important;
+    padding: 24px !important;
+
+    background: #f8fbff !important;
+
+    border: 1px solid #b9cbe2 !important;
+    border-radius: 16px !important;
+
+    box-shadow: 0 4px 14px rgba(10, 37, 64, 0.05) !important;
+}
+
+
+/* =========================================================
+   SECTION TITLE
+   ========================================================= */
+
+.register-shell .form-section-title {
+    display: block !important;
+
+    margin: 0 0 22px !important;
+    padding: 0 0 12px !important;
+
+    color: #0a2540 !important;
+
+    font-family: 'Manrope', Arial, sans-serif !important;
+
+    font-size: 1.05rem !important;
+    font-weight: 800 !important;
+
+    border-bottom: 2px solid #d7e3f2 !important;
+}
+
+
+/* =========================================================
+   GRID
+   ========================================================= */
+
+.register-shell .field-grid {
+    width: 100% !important;
+
+    display: grid !important;
+
+    grid-template-columns: 1fr 1fr !important;
+
+    gap: 20px !important;
+}
+
+.register-shell .field-full {
+    grid-column: 1 / -1 !important;
+}
+
+
+/* =========================================================
+   FIELD
+   ========================================================= */
+
+.register-shell .field {
+    width: 100% !important;
+    margin: 0 !important;
+}
+
+
+/* =========================================================
+   LABEL
+   ========================================================= */
+
+.register-shell .field label {
+    display: block !important;
+
+    margin: 0 0 8px !important;
+
+    color: #102a43 !important;
+
+    font-family: 'Inter', Arial, sans-serif !important;
+
+    font-size: 0.87rem !important;
+    font-weight: 700 !important;
+}
+
+
+/* =========================================================
+   INPUTS
+   ========================================================= */
+
+.register-shell .field input,
+.register-shell .field select,
+.register-shell .field textarea {
+
+    width: 100% !important;
+    box-sizing: border-box !important;
+
+    display: block !important;
+
+    padding: 13px 15px !important;
+
+    background: #ffffff !important;
+
+    border: 1.5px solid #aebfd4 !important;
+
+    border-radius: 10px !important;
+
+    color: #16223a !important;
+
+    font-family: 'Inter', Arial, sans-serif !important;
+
+    font-size: 0.94rem !important;
+
+    box-shadow: inset 0 1px 2px rgba(10, 37, 64, 0.03) !important;
+
+    transition: all 0.2s ease !important;
+}
+
+
+/* =========================================================
+   PLACEHOLDER
+   ========================================================= */
+
+.register-shell .field input::placeholder,
+.register-shell .field textarea::placeholder {
+    color: #7d8da3 !important;
+    opacity: 1 !important;
+}
+
+
+/* =========================================================
+   FOCUS
+   ========================================================= */
+
+.register-shell .field input:focus,
+.register-shell .field select:focus,
+.register-shell .field textarea:focus {
+
+    outline: none !important;
+
+    border: 2px solid #1863ff !important;
+
+    background: #ffffff !important;
+
+    box-shadow:
+        0 0 0 4px rgba(24, 99, 255, 0.12) !important;
+}
+
+
+/* =========================================================
+   TEXTAREA
+   ========================================================= */
+
+.register-shell .field textarea {
+    min-height: 100px !important;
+    resize: vertical !important;
+}
+
+
+/* =========================================================
+   INVALID INPUT
+   ========================================================= */
+
+.register-shell .field input.input-error {
+
+    border: 2px solid #dc2626 !important;
+
+    background: #fff5f5 !important;
+
+    color: #991b1b !important;
+
+    box-shadow:
+        0 0 0 4px rgba(220, 38, 38, 0.10) !important;
+}
+
+
+/* =========================================================
+   TERMS
+   ========================================================= */
+
+.register-shell .terms-row {
+
+    display: flex !important;
+
+    align-items: flex-start !important;
+
+    gap: 10px !important;
+
+    margin: 6px 0 22px !important;
+
+    color: #53657d !important;
+
+    font-family: 'Inter', Arial, sans-serif !important;
+
+    font-size: 0.85rem !important;
+}
+
+.register-shell .terms-row input {
+
+    width: auto !important;
+
+    margin-top: 4px !important;
+
+    accent-color: #1863ff !important;
+}
+
+
+/* =========================================================
+   CREATE ACCOUNT BUTTON
+   ========================================================= */
+
+.register-shell .btn-block {
+
+    width: 100% !important;
+
+    display: flex !important;
+
+    justify-content: center !important;
+
+    align-items: center !important;
+
+    padding: 15px 30px !important;
+
+    margin-top: 5px !important;
+
+    background: linear-gradient(
+        135deg,
+        #1863ff,
+        #0f4de0
+    ) !important;
+
+    border: none !important;
+
+    border-radius: 999px !important;
+
+    color: #ffffff !important;
+
+    font-family: 'Inter', Arial, sans-serif !important;
+
+    font-size: 0.98rem !important;
+
+    font-weight: 700 !important;
+
+    box-shadow:
+        0 12px 25px rgba(24, 99, 255, 0.28) !important;
+
+    cursor: pointer !important;
+
+    transition: all 0.25s ease !important;
+}
+
+.register-shell .btn-block:hover {
+
+    transform: translateY(-2px) !important;
+
+    box-shadow:
+        0 16px 30px rgba(24, 99, 255, 0.38) !important;
+}
+
+
+/* =========================================================
+   LOGIN NOTE
+   ========================================================= */
+
+.register-shell .register-note {
+
+    text-align: center !important;
+
+    margin: 18px 0 0 !important;
+
+    color: #607089 !important;
+
+    font-family: 'Inter', Arial, sans-serif !important;
+
+    font-size: 0.87rem !important;
+}
+
+.register-shell .register-note a {
+
+    color: #1863ff !important;
+
+    font-weight: 700 !important;
+
+    text-decoration: none !important;
+}
+
+.register-shell .register-note a:hover {
+    text-decoration: underline !important;
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+    body.auth-page {
+        padding: 25px 12px !important;
+    }
+
+    .register-shell {
+        width: 100% !important;
+
+        margin: 10px auto !important;
+
+        padding: 28px 18px !important;
+
+        border-radius: 20px !important;
+    }
+
+    .register-shell .field-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    .register-shell .field-full {
+        grid-column: auto !important;
+    }
+
+    .register-shell .form-section {
+        padding: 18px 15px !important;
+    }
+}

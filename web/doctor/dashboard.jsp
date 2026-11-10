@@ -56,13 +56,19 @@
             appointmentDAO.getTodaysSchedule(doctor.getDoctorId());
 
 
-    // ------------------------------------------------------------
-    // Patient module is not created yet
-    // ------------------------------------------------------------
+// ------------------------------------------------------------
+// DASHBOARD PATIENT STATISTICS
+// ------------------------------------------------------------
 
-    int upcomingPatients = 0;
-    int totalPatients = 0;
+int upcomingPatients =
+        appointmentDAO.countUpcomingPatients(
+                doctor.getDoctorId()
+        );
 
+int totalPatients =
+        appointmentDAO.countTotalPatients(
+                doctor.getDoctorId()
+        );
 %>
 
 <!DOCTYPE html>
@@ -223,24 +229,21 @@
             Patients
         </a>
 
-        <a href="availability.jsp">
-            Availability
-        </a>
+<a href="${pageContext.request.contextPath}/AvailabilityServlet">
+    Availability
+</a>
 
         <a href="prescriptions.jsp">
             Prescriptions
         </a>
 
-        <a href="profile.jsp">
+        <a href="<%= request.getContextPath() %>/DoctorProfileServlet">
             Profile
         </a>
 
-        <a
-            href="../DoctorLogoutServlet"
-            class="dash-logout"
-        >
-            Logout
-        </a>
+<a href="<%= request.getContextPath() %>/DoctorLogoutServlet">
+    Logout
+</a>
 
     </nav>
 

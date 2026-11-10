@@ -18,6 +18,7 @@ public class Doctor {
     private byte[] govtIdPhoto;
     private String status;
     private Timestamp createdAt;
+    private Double consultationFees;
 
     public String getDoctorId() {
         return doctorId;
@@ -130,6 +131,14 @@ public class Doctor {
     public void setCreatedAt(Timestamp createdAt) {
         this.createdAt = createdAt;
     }
+    
+    public Double getConsultationFees() {
+    return consultationFees;
+}
+
+public void setConsultationFees(Double consultationFees) {
+    this.consultationFees = consultationFees;
+}
     
     
     

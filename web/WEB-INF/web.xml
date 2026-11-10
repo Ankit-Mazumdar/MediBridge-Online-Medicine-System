@@ -24,6 +24,15 @@
         <servlet-name>PrescriptionServlet</servlet-name>
         <url-pattern>/PrescriptionServlet</url-pattern>
     </servlet-mapping>
+    <servlet>
+    <servlet-name>PatientForgotPasswordServlet</servlet-name>
+    <servlet-class>Servlets.PatientForgotPasswordServlet</servlet-class>
+</servlet>
+
+<servlet-mapping>
+    <servlet-name>PatientForgotPasswordServlet</servlet-name>
+    <url-pattern>/PatientForgotPasswordServlet</url-pattern>
+</servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>
     </session-config>

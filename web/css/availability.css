@@ -405,6 +405,12 @@ body {
     transition: 0.2s ease;
 }
 
+button.delete-btn {
+    font: inherit;
+    cursor: pointer;
+    border: none;
+}
+
 .delete-btn:hover {
     background: #ffeaea;
     border-color: #e7b4b4;

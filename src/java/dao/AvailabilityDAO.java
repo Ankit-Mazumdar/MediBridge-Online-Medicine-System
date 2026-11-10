@@ -3,6 +3,7 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,55 +12,94 @@ import util.DBConnection;
 
 public class AvailabilityDAO {
 
+    // ============================================================
+    // CHECK OVERLAPPING AVAILABILITY
+    // ============================================================
+
+    private boolean hasOverlappingAvailability(
+            Connection con,
+            DoctorAvailability availability) throws Exception {
+
+        String sql =
+                "SELECT COUNT(*) "
+                + "FROM DOCTOR_AVAILABILITY "
+                + "WHERE DOCTOR_ID = ? "
+                + "AND TRUNC(AVAILABILITY_DATE) = ? "
+                + "AND STATUS = 'ACTIVE' "
+                + "AND START_TIME < ? "
+                + "AND END_TIME > ?";
+
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setString(1, availability.getDoctorId());
+            ps.setDate(2, availability.getAvailabilityDate());
+            ps.setString(3, availability.getEndTime());
+            ps.setString(4, availability.getStartTime());
+
+            try (ResultSet rs = ps.executeQuery()) {
+
+                if (rs.next()) {
+                    return rs.getInt(1) > 0;
+                }
+            }
+        }
+
+        return false;
+    }
 
     // ============================================================
-    // ADD AVAILABILITY
+    // ADD DATE-BASED AVAILABILITY
     // ============================================================
 
-    public boolean addAvailability(DoctorAvailability availability) {
-
-        boolean result = false;
+    public boolean addAvailability(
+            DoctorAvailability availability) {
 
         String sql =
                 "INSERT INTO DOCTOR_AVAILABILITY "
-                + "(DOCTOR_ID, DAY_OF_WEEK, START_TIME, END_TIME, "
-                + "SLOT_DURATION, STATUS) "
-                + "VALUES (?, ?, ?, ?, ?, 'ACTIVE')";
+                + "(DOCTOR_ID, DAY_OF_WEEK, AVAILABILITY_DATE, "
+                + "START_TIME, END_TIME, SLOT_DURATION, STATUS) "
+                + "VALUES (?, ?, ?, ?, ?, ?, 'ACTIVE')";
 
-        try {
+        try (Connection con = DBConnection.getConnection()) {
 
-            Connection con = DBConnection.getConnection();
-
-            PreparedStatement ps =
-                    con.prepareStatement(sql);
-
-            ps.setString(1, availability.getDoctorId());
-            ps.setString(2, availability.getDayOfWeek());
-            ps.setString(3, availability.getStartTime());
-            ps.setString(4, availability.getEndTime());
-            ps.setInt(5, availability.getSlotDuration());
-
-            int rows = ps.executeUpdate();
-
-            if (rows > 0) {
-                result = true;
+            if (con == null) {
+                System.out.println("Database connection unavailable.");
+                return false;
             }
 
-            ps.close();
-            con.close();
+            // Prevent overlapping schedules for the same doctor/date.
+            if (hasOverlappingAvailability(con, availability)) {
+
+                System.out.println(
+                        "Overlapping availability already exists."
+                );
+
+                return false;
+            }
+
+            try (PreparedStatement ps = con.prepareStatement(sql)) {
+
+                ps.setString(1, availability.getDoctorId());
+                ps.setString(2, availability.getDayOfWeek());
+                ps.setDate(3, availability.getAvailabilityDate());
+                ps.setString(4, availability.getStartTime());
+                ps.setString(5, availability.getEndTime());
+                ps.setInt(6, availability.getSlotDuration());
+
+                return ps.executeUpdate() > 0;
+            }
 
         } catch (Exception e) {
 
             System.out.println("Availability insert failed.");
             e.printStackTrace();
-        }
 
-        return result;
+            return false;
+        }
     }
 
-
     // ============================================================
-    // GET AVAILABILITY FOR A DOCTOR
+    // GET DATE-BASED AVAILABILITY FOR A DOCTOR
     // ============================================================
 
     public List<DoctorAvailability> getAvailabilityByDoctor(
@@ -70,62 +110,66 @@ public class AvailabilityDAO {
 
         String sql =
                 "SELECT AVAILABILITY_ID, DOCTOR_ID, DAY_OF_WEEK, "
-                + "START_TIME, END_TIME, SLOT_DURATION, STATUS "
+                + "AVAILABILITY_DATE, START_TIME, END_TIME, "
+                + "SLOT_DURATION, STATUS "
                 + "FROM DOCTOR_AVAILABILITY "
                 + "WHERE DOCTOR_ID = ? "
                 + "AND STATUS = 'ACTIVE' "
-                + "ORDER BY AVAILABILITY_ID";
+                + "AND AVAILABILITY_DATE IS NOT NULL "
+                + "AND TRUNC(AVAILABILITY_DATE) >= TRUNC(SYSDATE) "
+                + "ORDER BY AVAILABILITY_DATE, START_TIME";
 
-        try {
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
 
-            Connection con = DBConnection.getConnection();
-
-            PreparedStatement ps =
-                    con.prepareStatement(sql);
+            if (con == null) {
+                return list;
+            }
 
             ps.setString(1, doctorId);
 
-            ResultSet rs = ps.executeQuery();
+            try (ResultSet rs = ps.executeQuery()) {
 
-            while (rs.next()) {
+                while (rs.next()) {
 
-                DoctorAvailability availability =
-                        new DoctorAvailability();
+                    DoctorAvailability availability =
+                            new DoctorAvailability();
 
-                availability.setAvailabilityId(
-                        rs.getInt("AVAILABILITY_ID")
-                );
+                    availability.setAvailabilityId(
+                            rs.getInt("AVAILABILITY_ID")
+                    );
 
-                availability.setDoctorId(
-                        rs.getString("DOCTOR_ID")
-                );
+                    availability.setDoctorId(
+                            rs.getString("DOCTOR_ID")
+                    );
 
-                availability.setDayOfWeek(
-                        rs.getString("DAY_OF_WEEK")
-                );
+                    availability.setDayOfWeek(
+                            rs.getString("DAY_OF_WEEK")
+                    );
 
-                availability.setStartTime(
-                        rs.getString("START_TIME")
-                );
+                    availability.setAvailabilityDate(
+                            rs.getDate("AVAILABILITY_DATE")
+                    );
 
-                availability.setEndTime(
-                        rs.getString("END_TIME")
-                );
+                    availability.setStartTime(
+                            rs.getString("START_TIME")
+                    );
 
-                availability.setSlotDuration(
-                        rs.getInt("SLOT_DURATION")
-                );
+                    availability.setEndTime(
+                            rs.getString("END_TIME")
+                    );
 
-                availability.setStatus(
-                        rs.getString("STATUS")
-                );
+                    availability.setSlotDuration(
+                            rs.getInt("SLOT_DURATION")
+                    );
 
-                list.add(availability);
+                    availability.setStatus(
+                            rs.getString("STATUS")
+                    );
+
+                    list.add(availability);
+                }
             }
-
-            rs.close();
-            ps.close();
-            con.close();
 
         } catch (Exception e) {
 
@@ -139,7 +183,6 @@ public class AvailabilityDAO {
         return list;
     }
 
-
     // ============================================================
     // DELETE AVAILABILITY
     // ============================================================
@@ -148,41 +191,29 @@ public class AvailabilityDAO {
             int availabilityId,
             String doctorId) {
 
-        boolean result = false;
-
         String sql =
                 "DELETE FROM DOCTOR_AVAILABILITY "
                 + "WHERE AVAILABILITY_ID = ? "
                 + "AND DOCTOR_ID = ?";
 
-        try {
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
 
-            Connection con = DBConnection.getConnection();
-
-            PreparedStatement ps =
-                    con.prepareStatement(sql);
+            if (con == null) {
+                return false;
+            }
 
             ps.setInt(1, availabilityId);
             ps.setString(2, doctorId);
 
-            int rows = ps.executeUpdate();
-
-            if (rows > 0) {
-                result = true;
-            }
-
-            ps.close();
-            con.close();
+            return ps.executeUpdate() > 0;
 
         } catch (Exception e) {
 
-            System.out.println(
-                    "Availability delete failed."
-            );
-
+            System.out.println("Availability delete failed.");
             e.printStackTrace();
-        }
 
-        return result;
+            return false;
+        }
     }
 }

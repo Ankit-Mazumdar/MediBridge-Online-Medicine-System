@@ -1,3 +1,4 @@
+
 package servlet;
 
 import dao.AppointmentDAO;
@@ -7,59 +8,61 @@ import model.Doctor;
 import model.Prescription;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.servlet.http.Part;
 
 import java.io.IOException;
 import java.util.List;
-//
 
-@MultipartConfig
-//@WebServlet("/PrescriptionServlet")
 public class PrescriptionServlet extends HttpServlet {
+
+    // ==========================================
+    // DOCTOR: OPEN FORM / VIEW PRESCRIPTIONS
+    // ==========================================
 
     protected void doGet(HttpServletRequest request,
                          HttpServletResponse response)
             throws ServletException, IOException {
 
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession(false);
 
-        Doctor doctor =
+        Doctor doctor = (session == null) ? null :
                 (Doctor) session.getAttribute("doctor");
 
-        // Check doctor login
         if (doctor == null) {
-
-            response.sendRedirect("login.jsp");
+            response.sendRedirect(
+                    request.getContextPath() + "/login.jsp");
             return;
         }
 
         String doctorId = doctor.getDoctorId();
-
         String action = request.getParameter("action");
 
-        /*
-         * =====================================================
-         * OPEN PRESCRIPTION FORM FOR AN APPOINTMENT
-         * =====================================================
-         */
-
+        // Open prescription form
         if ("create".equals(action)) {
 
             String appointmentIdString =
                     request.getParameter("appointmentId");
 
-            if (appointmentIdString == null) {
-                response.sendRedirect("AppointmentServlet");
+            if (appointmentIdString == null ||
+                    appointmentIdString.trim().isEmpty()) {
+
+                response.sendRedirect(
+                        request.getContextPath() + "/AppointmentServlet");
                 return;
             }
 
-            int appointmentId =
-                    Integer.parseInt(appointmentIdString);
+            int appointmentId;
+
+            try {
+                appointmentId = Integer.parseInt(appointmentIdString);
+            } catch (NumberFormatException e) {
+                response.sendRedirect(
+                        request.getContextPath() + "/AppointmentServlet");
+                return;
+            }
 
             AppointmentDAO appointmentDAO =
                     new AppointmentDAO();
@@ -71,81 +74,65 @@ public class PrescriptionServlet extends HttpServlet {
 
             for (Appointment appointment : appointments) {
 
-                if (appointment.getAppointmentId()
-                        == appointmentId) {
-
+                if (appointment.getAppointmentId() == appointmentId) {
                     selectedAppointment = appointment;
                     break;
                 }
             }
 
             if (selectedAppointment == null) {
-
-                response.sendRedirect("AppointmentServlet");
+                response.sendRedirect(
+                        request.getContextPath() + "/AppointmentServlet");
                 return;
             }
 
-            request.setAttribute(
-                    "appointment",
-                    selectedAppointment
-            );
+            request.setAttribute("appointment", selectedAppointment);
 
             request.getRequestDispatcher(
-                    "doctor/prescription-form.jsp"
+                    "/doctor/prescription-form.jsp"
             ).forward(request, response);
 
             return;
         }
 
-
-        /*
-         * =====================================================
-         * SHOW ALL PRESCRIPTIONS
-         * =====================================================
-         */
-
+        // Show all prescriptions
         PrescriptionDAO prescriptionDAO =
                 new PrescriptionDAO();
 
         List<Prescription> prescriptions =
-                prescriptionDAO.getPrescriptionsByDoctor(
-                        doctorId
-                );
+                prescriptionDAO.getPrescriptionsByDoctor(doctorId);
 
-        request.setAttribute(
-                "prescriptions",
-                prescriptions
-        );
+        request.setAttribute("prescriptions", prescriptions);
 
         request.getRequestDispatcher(
-                "doctor/prescriptions.jsp"
+                "/doctor/prescriptions.jsp"
         ).forward(request, response);
     }
 
+
+    // ==========================================
+    // DOCTOR: SAVE PRESCRIPTION
+    // ==========================================
 
     protected void doPost(HttpServletRequest request,
                           HttpServletResponse response)
             throws ServletException, IOException {
 
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession(false);
 
-        Doctor doctor =
+        Doctor doctor = (session == null) ? null :
                 (Doctor) session.getAttribute("doctor");
 
-        // Check doctor login
         if (doctor == null) {
-
-            response.sendRedirect("login.jsp");
+            response.sendRedirect(
+                    request.getContextPath() + "/login.jsp");
             return;
         }
 
         String doctorId = doctor.getDoctorId();
-        System.out.println("========== PRESCRIPTION SAVE START ==========");
-System.out.println("Doctor ID = " + doctorId);
 
         String appointmentIdString =
                 request.getParameter("appointmentId");
-        System.out.println("Appointment ID String = " + appointmentIdString);
 
         String patientName =
                 request.getParameter("patientName");
@@ -158,136 +145,81 @@ System.out.println("Doctor ID = " + doctorId);
 
         String instructions =
                 request.getParameter("instructions");
-        
-        System.out.println("Patient Name = " + patientName);
-System.out.println("Diagnosis = " + diagnosis);
-System.out.println("Medicines = " + medicines);
-System.out.println("Instructions = " + instructions);
 
-String prescriptionFile = null;
+        // Validate required fields
+        if (appointmentIdString == null ||
+                appointmentIdString.trim().isEmpty() ||
+                patientName == null ||
+                diagnosis == null ||
+                diagnosis.trim().isEmpty() ||
+                medicines == null ||
+                medicines.trim().isEmpty()) {
 
-Part prescriptionFilePart =
-        request.getPart("prescriptionFile");
-
-//String prescriptionFile = null;
-if (prescriptionFilePart != null
-        && prescriptionFilePart.getSize() > 0) {
-
-    prescriptionFile =
-            prescriptionFilePart.getSubmittedFileName();
-}
-//if (prescriptionFilePart != null
-//        && prescriptionFilePart.getSize() > 0) {
-//
-//    String contentDisposition =
-//            prescriptionFilePart.getHeader("content-disposition");
-//
-//    if (contentDisposition != null) {
-//
-//        String[] parts =
-//                contentDisposition.split(";");
-//
-//        for (String part : parts) {
-//
-//            if (part.trim().startsWith("filename")) {
-//
-//                prescriptionFile =
-//                        part.substring(
-//                                part.indexOf('=') + 1
-//                        ).trim();
-//
-//                prescriptionFile =
-//                        prescriptionFile.replace("\"", "");
-//
-//                break;
-//            }
-//        }
-//    }
-//}
-
-System.out.println("Appointment ID String = "
-        + appointmentIdString);
-
-System.out.println("Patient Name = "
-        + patientName);
-
-System.out.println("Diagnosis = "
-        + diagnosis);
-
-System.out.println("Medicines = "
-        + medicines);
-
-System.out.println("Instructions = "
-        + instructions);
-
-System.out.println("Prescription File = "
-        + prescriptionFile);
-
-
-        if (appointmentIdString == null) {
-
-            response.sendRedirect("AppointmentServlet");
+            response.sendRedirect(
+                    request.getContextPath() + "/AppointmentServlet");
             return;
         }
 
-        int appointmentId =
-                Integer.parseInt(appointmentIdString);
+        int appointmentId;
 
+        try {
+            appointmentId = Integer.parseInt(appointmentIdString);
+        } catch (NumberFormatException e) {
+            response.sendRedirect(
+                    request.getContextPath() + "/AppointmentServlet");
+            return;
+        }
 
-        Prescription prescription =
-                new Prescription();
+        // Verify appointment belongs to this doctor
+        AppointmentDAO appointmentDAO =
+                new AppointmentDAO();
 
-        prescription.setAppointmentId(
-                appointmentId
-        );
+        List<Appointment> appointments =
+                appointmentDAO.getAppointmentsByDoctor(doctorId);
 
-        prescription.setDoctorId(
-                doctorId
-        );
+        boolean validAppointment = false;
 
-        prescription.setPatientName(
-                patientName
-        );
+        for (Appointment appointment : appointments) {
 
-        prescription.setDiagnosis(
-                diagnosis
-        );
+            if (appointment.getAppointmentId() == appointmentId) {
+                validAppointment = true;
+                break;
+            }
+        }
 
-        prescription.setMedicines(
-                medicines
-        );
+        if (!validAppointment) {
+            response.sendRedirect(
+                    request.getContextPath() + "/AppointmentServlet");
+            return;
+        }
 
+        // Create prescription
+        Prescription prescription = new Prescription();
+
+        prescription.setAppointmentId(appointmentId);
+        prescription.setDoctorId(doctorId);
+        prescription.setPatientName(patientName);
+        prescription.setDiagnosis(diagnosis.trim());
+        prescription.setMedicines(medicines.trim());
         prescription.setInstructions(
-                instructions
-        );
-        prescription.setPrescriptionFile(
-        prescriptionFile
-);
+                instructions == null ? "" : instructions.trim());
 
-
+        // Save prescription
         PrescriptionDAO prescriptionDAO =
                 new PrescriptionDAO();
 
         boolean saved =
-                prescriptionDAO.savePrescription(
-                        prescription
-                );
-        
-        System.out.println("Prescription DAO saved = " + saved);
-System.out.println("========== PRESCRIPTION SAVE END ==========");
-
+                prescriptionDAO.savePrescription(prescription);
 
         if (saved) {
 
             response.sendRedirect(
-                    "PrescriptionServlet"
-            );
+                    request.getContextPath() + "/PrescriptionServlet");
 
         } else {
 
             response.sendRedirect(
-                    "AppointmentServlet"
-            );
+                    request.getContextPath() + "/AppointmentServlet");
         }
     }
 }

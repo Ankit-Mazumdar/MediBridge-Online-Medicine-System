@@ -1,70 +1,73 @@
+
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 
 <%@ page import="model.Doctor" %>
 <%@ page import="model.DoctorAvailability" %>
 <%@ page import="java.util.List" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.util.Date" %>
 
 <%
     Doctor doctor = (Doctor) session.getAttribute("doctor");
 
-    // ------------------------------------------------------------
     // Authentication check
-    // ------------------------------------------------------------
     if (doctor == null) {
-        response.sendRedirect("../login.jsp");
+        response.sendRedirect(
+            request.getContextPath() + "/login.jsp"
+        );
         return;
     }
 
-
-    // ------------------------------------------------------------
     // Availability data
-    // ------------------------------------------------------------
     List<DoctorAvailability> availabilityList =
-            (List<DoctorAvailability>) request.getAttribute("availabilityList");
+        (List<DoctorAvailability>) request.getAttribute("availabilityList");
 
+    // If opened directly, load through AvailabilityServlet
+    if (availabilityList == null) {
+        response.sendRedirect(
+            request.getContextPath() + "/AvailabilityServlet"
+        );
+        return;
+    }
 
-    // ------------------------------------------------------------
     // Messages
-    // ------------------------------------------------------------
     String success = request.getParameter("success");
     String error = request.getParameter("error");
 
+    // Today's date for date picker minimum
+    SimpleDateFormat inputDateFormat =
+        new SimpleDateFormat("yyyy-MM-dd");
 
-    // ------------------------------------------------------------
+    String todayDate = inputDateFormat.format(new Date());
+
+    // Date display format
+    SimpleDateFormat displayDateFormat =
+        new SimpleDateFormat("EEEE, dd MMMM yyyy");
+
     // Doctor initials
-    // ------------------------------------------------------------
     String initials = "DR";
 
     if (doctor.getFullName() != null &&
         !doctor.getFullName().trim().isEmpty()) {
 
         String[] parts =
-                doctor.getFullName().trim().split("\\s+");
+            doctor.getFullName().trim().split("\\s+");
 
-        initials =
-                parts[0].substring(0, 1).toUpperCase();
+        initials = parts[0].substring(0, 1).toUpperCase();
 
         if (parts.length > 1) {
-
-            initials +=
-                    parts[parts.length - 1]
-                    .substring(0, 1)
-                    .toUpperCase();
+            initials += parts[parts.length - 1]
+                .substring(0, 1).toUpperCase();
         }
     }
 
-
-    // ------------------------------------------------------------
     // Doctor status
-    // ------------------------------------------------------------
     String status =
-            (doctor.getStatus() != null)
-            ? doctor.getStatus()
-            : "Pending";
+        (doctor.getStatus() != null)
+        ? doctor.getStatus()
+        : "Pending";
 
-    String statusClass =
-            "status-" + status.toLowerCase();
-
+    String statusClass = "status-" + status.toLowerCase();
 %>
 
 
@@ -81,7 +84,6 @@
 
     <title>Availability | MediBridge</title>
 
-
     <!-- ========================================================
          FONTS
          ======================================================== -->
@@ -94,50 +96,64 @@
         rel="stylesheet"
     >
 
-
     <!-- ========================================================
-         MAIN WEBSITE CSS
+         WEBSITE CSS
          ======================================================== -->
 
-<!--    <link rel="stylesheet"
-          href="../css/style.css">-->
+    <link rel="stylesheet"
+          href="${pageContext.request.contextPath}/css/style.css">
 
-<link rel="stylesheet"
-      href="${pageContext.request.contextPath}/css/style.css">
+    <link rel="stylesheet"
+          href="${pageContext.request.contextPath}/css/dashboard.css">
 
-<link rel="stylesheet"
-      href="${pageContext.request.contextPath}/css/dashboard.css">
-
-<link rel="stylesheet"
-      href="${pageContext.request.contextPath}/css/availability.css">
-
+    <link rel="stylesheet"
+          href="${pageContext.request.contextPath}/css/availability.css">
 
     <!-- ========================================================
-         DASHBOARD CSS
-         Contains:
-         - Header
-         - Logo
-         - Navigation
-         - Doctor profile
-         - Logout
+         DATE INPUT STYLING
          ======================================================== -->
 
-<!--    <link rel="stylesheet"
-          href="../css/dashboard.css">-->
+    <style>
 
+        .form-group input[type="date"] {
+            width: 100%;
+            padding: 13px 15px;
+            border: 1px solid #dbe3ed;
+            border-radius: 9px;
+            background: #ffffff;
+            color: #172b4d;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            outline: none;
+            box-sizing: border-box;
+        }
 
-    <!-- ========================================================
-         AVAILABILITY CSS
-         ======================================================== -->
+        .form-group input[type="date"]:focus {
+            border-color: #2684ff;
+            box-shadow: 0 0 0 3px rgba(38, 132, 255, 0.10);
+        }
 
-<!--    <link rel="stylesheet"
-          href="../css/availability.css">-->
+        .schedule-date {
+            color: #172b4d;
+            font-weight: 700;
+            font-size: 15px;
+        }
+
+        .schedule-day p {
+            margin-top: 6px;
+        }
+
+        button.delete-btn {
+            font-family: inherit;
+            cursor: pointer;
+            border: none;
+        }
+
+    </style>
 
 </head>
 
-
 <body class="dash-page">
-
 
 <!-- ============================================================
      HEADER
@@ -145,21 +161,16 @@
 
 <header class="dash-header">
 
-
     <!-- ========================================================
          TOP ROW
          ======================================================== -->
 
     <div class="dash-topline">
 
+        <!-- MEDIBRIDGE BRAND -->
 
-        <!-- ====================================================
-             MEDIBRIDGE BRAND
-             ==================================================== -->
-
-        <a href="dashboard.jsp"
+        <a href="${pageContext.request.contextPath}/doctor/dashboard.jsp"
            class="brand">
-
 
             <svg
                 class="logo-mark"
@@ -191,14 +202,12 @@
 
                 </defs>
 
-
                 <circle
                     cx="24"
                     cy="24"
                     r="22"
                     fill="url(#availabilityLogoGrad)"
                 />
-
 
                 <path
                     d="M8 24 H16 L19 15 L24 33 L28 24 H40"
@@ -211,21 +220,15 @@
 
             </svg>
 
-
             <span class="brand-name">
                 MediBridge
             </span>
 
         </a>
 
-
-
-        <!-- ====================================================
-             DOCTOR INFORMATION
-             ==================================================== -->
+        <!-- DOCTOR INFORMATION -->
 
         <div class="dash-user">
-
 
             <div class="dash-user-info">
 
@@ -233,18 +236,16 @@
                     Dr. <%= doctor.getFullName() %>
                 </strong>
 
-
                 <span class="status-badge <%= statusClass %>">
                     <%= status %>
                 </span>
 
             </div>
 
-
-            <!-- Doctor Avatar -->
+            <!-- DOCTOR AVATAR -->
 
             <a
-                href="profile.jsp"
+                href="${pageContext.request.contextPath}/doctor/profile.jsp"
                 class="dash-avatar"
                 title="View Profile"
             >
@@ -253,12 +254,9 @@
 
             </a>
 
-
         </div>
 
     </div>
-
-
 
     <!-- ========================================================
          NAVIGATION
@@ -266,75 +264,41 @@
 
     <nav class="dash-nav">
 
-
-        <!-- Dashboard -->
-
-<!--        <a href="dashboard.jsp">-->
-            <a href="${pageContext.request.contextPath}/doctor/dashboard.jsp">
+        <a href="${pageContext.request.contextPath}/doctor/dashboard.jsp">
             Dashboard
         </a>
 
-
-        <!-- Appointments -->
-
-<!--        <a href="appointments.jsp">-->
-            <a href="${pageContext.request.contextPath}/doctor/appointments.jsp">
+        <a href="${pageContext.request.contextPath}/doctor/appointments.jsp">
             Appointments
         </a>
 
-
-        <!-- Patients -->
-
-<!--        <a href="patients.jsp">-->
-            <a href="${pageContext.request.contextPath}/doctor/patients.jsp">
+        <a href="${pageContext.request.contextPath}/doctor/patients.jsp">
             Patients
         </a>
 
-
-        <!-- Availability - CURRENT PAGE -->
-
-<!--        <a href="availability.jsp"-->
-<a href="${pageContext.request.contextPath}/AvailabilityServlet"
+        <a href="${pageContext.request.contextPath}/AvailabilityServlet"
            class="active">
-
             Availability
-
         </a>
 
-
-        <!-- Prescriptions -->
-
-<!--        <a href="prescriptions.jsp">-->
-            <a href="${pageContext.request.contextPath}/doctor/prescriptions.jsp">
+        <a href="${pageContext.request.contextPath}/doctor/prescriptions.jsp">
             Prescriptions
         </a>
 
-
-        <!-- Profile -->
-
-<!--        <a href="profile.jsp">-->
-            <a href="${pageContext.request.contextPath}/doctor/profile.jsp">
+        <a href="${pageContext.request.contextPath}/doctor/profile.jsp">
             Profile
         </a>
 
-
-        <!-- Logout -->
-
         <a
-            href="../DoctorLogoutServlet"
+            href="${pageContext.request.contextPath}/DoctorLogoutServlet"
             class="dash-logout"
         >
-
             Logout
-
         </a>
-
 
     </nav>
 
 </header>
-
-
 
 <!-- ============================================================
      MAIN CONTENT
@@ -342,13 +306,11 @@
 
 <main class="availability-container">
 
-
     <!-- ========================================================
          PAGE HEADING
          ======================================================== -->
 
     <div class="page-heading">
-
 
         <div>
 
@@ -356,23 +318,18 @@
                 Manage Availability
             </h1>
 
-
             <p>
-                Set the days and times when you are available
+                Select specific dates and times when you are available
                 for consultations.
             </p>
 
         </div>
 
-
         <div class="heading-icon">
             Calendar
         </div>
 
-
     </div>
-
-
 
     <!-- ========================================================
          SUCCESS MESSAGE
@@ -381,15 +338,11 @@
     <% if (success != null) { %>
 
         <div class="message success-message">
-
             Success:
             <%= success %>
-
         </div>
 
     <% } %>
-
-
 
     <!-- ========================================================
          ERROR MESSAGE
@@ -398,15 +351,11 @@
     <% if (error != null) { %>
 
         <div class="message error-message">
-
             Error:
             <%= error %>
-
         </div>
 
     <% } %>
-
-
 
     <!-- ========================================================
          CONTENT GRID
@@ -414,18 +363,15 @@
 
     <div class="content-grid">
 
-
         <!-- ====================================================
              ADD AVAILABILITY
              ==================================================== -->
 
         <section class="availability-card">
 
-
-            <!-- Card Header -->
+            <!-- CARD HEADER -->
 
             <div class="card-header">
-
 
                 <div>
 
@@ -433,22 +379,17 @@
                         Add Availability
                     </h2>
 
-
                     <p>
-                        Create a consultation schedule for a day.
+                        Create a consultation schedule for a specific date.
                     </p>
 
                 </div>
-
 
                 <div class="card-icon blue-icon">
                     +
                 </div>
 
-
             </div>
-
-
 
             <!-- =================================================
                  AVAILABILITY FORM
@@ -459,82 +400,43 @@
                 method="post"
             >
 
+                <input type="hidden"
+                       name="action"
+                       value="add">
 
-                <!-- Day -->
+                <!-- AVAILABLE DATE -->
 
                 <div class="form-group">
 
-
-                    <label for="dayOfWeek">
-                        Available Day
+                    <label for="availabilityDate">
+                        Available Date
                     </label>
 
-
-                    <select
-                        id="dayOfWeek"
-                        name="dayOfWeek"
+                    <input
+                        type="date"
+                        id="availabilityDate"
+                        name="availabilityDate"
+                        min="<%= todayDate %>"
                         required
                     >
 
-                        <option value="">
-                            Select a day
-                        </option>
-
-
-                        <option value="MONDAY">
-                            Monday
-                        </option>
-
-
-                        <option value="TUESDAY">
-                            Tuesday
-                        </option>
-
-
-                        <option value="WEDNESDAY">
-                            Wednesday
-                        </option>
-
-
-                        <option value="THURSDAY">
-                            Thursday
-                        </option>
-
-
-                        <option value="FRIDAY">
-                            Friday
-                        </option>
-
-
-                        <option value="SATURDAY">
-                            Saturday
-                        </option>
-
-
-                        <option value="SUNDAY">
-                            Sunday
-                        </option>
-
-                    </select>
+                    <small>
+                        Select the exact date when you are available.
+                    </small>
 
                 </div>
 
-
-
-                <!-- Time -->
+                <!-- TIME ROW -->
 
                 <div class="time-row">
 
-
-                    <!-- Start Time -->
+                    <!-- START TIME -->
 
                     <div class="form-group">
-
 
                         <label for="startTime">
                             Start Time
                         </label>
-
 
                         <input
                             type="time"
@@ -545,17 +447,13 @@
 
                     </div>
 
-
-
-                    <!-- End Time -->
+                    <!-- END TIME -->
 
                     <div class="form-group">
-
 
                         <label for="endTime">
                             End Time
                         </label>
-
 
                         <input
                             type="time"
@@ -566,20 +464,15 @@
 
                     </div>
 
-
                 </div>
 
-
-
-                <!-- Consultation Duration -->
+                <!-- CONSULTATION DURATION -->
 
                 <div class="form-group">
-
 
                     <label for="slotDuration">
                         Consultation Duration
                     </label>
-
 
                     <select
                         id="slotDuration"
@@ -591,16 +484,13 @@
                             Select duration
                         </option>
 
-
                         <option value="15">
                             15 Minutes
                         </option>
 
-
                         <option value="30">
                             30 Minutes
                         </option>
-
 
                         <option value="60">
                             60 Minutes
@@ -608,34 +498,24 @@
 
                     </select>
 
-
                     <small>
                         Each consultation will use this amount of time.
                     </small>
 
-
                 </div>
 
-
-
-                <!-- Save -->
+                <!-- SAVE BUTTON -->
 
                 <button
                     type="submit"
                     class="save-btn"
                 >
-
                     Save Availability
-
                 </button>
-
 
             </form>
 
-
         </section>
-
-
 
         <!-- ====================================================
              EXISTING AVAILABILITY
@@ -643,11 +523,9 @@
 
         <section class="availability-card">
 
-
-            <!-- Card Header -->
+            <!-- CARD HEADER -->
 
             <div class="card-header">
-
 
                 <div>
 
@@ -655,22 +533,17 @@
                         Your Schedule
                     </h2>
 
-
                     <p>
-                        Your current consultation availability.
+                        Your upcoming consultation availability.
                     </p>
 
                 </div>
-
 
                 <div class="card-icon teal-icon">
                     OK
                 </div>
 
-
             </div>
-
-
 
             <!-- =================================================
                  NO AVAILABILITY
@@ -679,32 +552,24 @@
             <% if (availabilityList == null ||
                    availabilityList.isEmpty()) { %>
 
-
                 <div class="empty-state">
-
 
                     <div class="empty-icon">
                         Calendar
                     </div>
 
-
                     <h3>
                         No availability added
                     </h3>
-
 
                     <p>
                         Add your first consultation schedule
                         using the form.
                     </p>
 
-
                 </div>
 
-
             <% } else { %>
-
-
 
                 <!-- =================================================
                      AVAILABILITY LIST
@@ -712,29 +577,26 @@
 
                 <div class="schedule-list">
 
-
                     <% for (DoctorAvailability availability :
                            availabilityList) { %>
 
-
                         <div class="schedule-item">
 
-
-                            <!-- Day and Time -->
+                            <!-- DATE AND TIME -->
 
                             <div class="schedule-day">
 
-
                                 <span class="day-dot"></span>
-
 
                                 <div>
 
+                                    <h3 class="schedule-date">
 
-                                    <h3>
-                                        <%= availability.getDayOfWeek() %>
+                                        <%= displayDateFormat.format(
+                                                availability.getAvailabilityDate()
+                                           ) %>
+
                                     </h3>
-
 
                                     <p>
 
@@ -746,18 +608,13 @@
 
                                     </p>
 
-
                                 </div>
-
 
                             </div>
 
-
-
-                            <!-- Duration and Delete -->
+                            <!-- DURATION AND DELETE -->
 
                             <div class="schedule-details">
-
 
                                 <span class="duration-badge">
 
@@ -766,41 +623,49 @@
 
                                 </span>
 
-
-                                <a
-                                    href="${pageContext.request.contextPath}/AvailabilityServlet?action=delete&id=<%= availability.getAvailabilityId() %>"
-                                    class="delete-btn"
-                                    onclick="return confirm('Delete this availability?');"
+                                <form
+                                    action="${pageContext.request.contextPath}/AvailabilityServlet"
+                                    method="post"
+                                    onsubmit="return confirm('Are you sure you want to delete this availability?');"
+                                    style="margin: 0;"
                                 >
 
-                                    Delete
+                                    <input
+                                        type="hidden"
+                                        name="action"
+                                        value="delete"
+                                    >
 
-                                </a>
+                                    <input
+                                        type="hidden"
+                                        name="id"
+                                        value="<%= availability.getAvailabilityId() %>"
+                                    >
 
+                                    <button
+                                        type="submit"
+                                        class="delete-btn"
+                                    >
+                                        Delete
+                                    </button>
+
+                                </form>
 
                             </div>
 
-
                         </div>
-
 
                     <% } %>
 
-
                 </div>
-
 
             <% } %>
 
-
         </section>
-
 
     </div>
 
-
 </main>
-
 
 </body>
 

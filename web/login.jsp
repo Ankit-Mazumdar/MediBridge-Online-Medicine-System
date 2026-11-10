@@ -14,6 +14,10 @@
     
 <%
     String error = request.getParameter("error");
+
+    if (error == null) {
+        error = (String) request.getAttribute("error");
+    }
 %>
 
 
@@ -41,7 +45,8 @@
   <!-- ============ PATIENT SIGN-IN PANEL ============ -->
   <!-- Becomes visible only when the URL fragment is #patient (see css/login.css) -->
   <div id="patient" class="auth-panel">
-    <a href="login.jsp" class="role-back">
+<!--    <a href="login.jsp" class="role-back">-->
+        <a href="<%= request.getContextPath() %>/login.jsp" class="role-back">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
       Choose a different role
     </a>
@@ -56,7 +61,8 @@
       </div>
     </div>
 
-    <form action="PatientLoginServlet" method="post">
+<!--    <form action="PatientLoginServlet" method="post">-->
+       <form action="<%= request.getContextPath() %>/PatientLoginServlet" method="post">
       <input type="hidden" name="role" value="patient">
 
       <div class="field">
@@ -74,7 +80,8 @@
       <button type="submit" class="btn btn-primary btn-block">Sign In</button>
     </form>
 
-    <p class="auth-switch">New patient? <a href="register.jsp">Create account</a></p>
+<!--    <p class="auth-switch">New patient? <a href="register.jsp">Create account</a></p>-->
+        <p class="auth-switch">New patient? <a href="<%= request.getContextPath() %>/Patient/PatientRegister.jsp">Create account</a></p>
   </div>
 
   <!-- ============ DOCTOR SIGN-IN PANEL ============ -->
@@ -166,7 +173,8 @@
       </div>
     </div>
 
-    <form action="AdminLoginServlet" method="post">
+<!--    <form action="AdminLoginServlet" method="post">-->
+    <form action="<%= request.getContextPath() %>/adminLogin" method="post">
       <input type="hidden" name="role" value="admin">
 
       <div class="field">

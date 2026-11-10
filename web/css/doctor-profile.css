@@ -1,0 +1,391 @@
+
+* {
+    box-sizing: border-box;
+}
+
+.profile-page {
+    margin: 0;
+    background: #f4f7fb;
+    color: #172b45;
+    font-family: 'Inter', sans-serif;
+}
+
+.profile-header {
+    min-height: 76px;
+    padding: 0 7%;
+    background: #0a2540;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.profile-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: white;
+    text-decoration: none;
+    font-family: 'Manrope', sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+}
+
+.brand-icon {
+    width: 38px;
+    height: 38px;
+    background: #ffffff;
+    color: #0a2540;
+    border-radius: 12px;
+    display: grid;
+    place-items: center;
+}
+
+.profile-nav {
+    display: flex;
+    align-items: center;
+    gap: 27px;
+}
+
+.profile-nav a {
+    color: #d4e1ee;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.profile-nav a:hover,
+.profile-nav a.active {
+    color: white;
+}
+
+.profile-nav .logout-link {
+    color: #ffb5b5;
+}
+
+.profile-container {
+    width: 88%;
+    max-width: 1120px;
+    margin: 42px auto;
+}
+
+.profile-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 27px;
+    gap: 20px;
+}
+
+.eyebrow {
+    color: #168baf;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+}
+
+.profile-heading h1 {
+    font-family: 'Manrope', sans-serif;
+    font-size: 31px;
+    margin: 8px 0;
+}
+
+.profile-heading p,
+.section-heading p {
+    color: #77869a;
+    font-size: 13px;
+    margin: 0;
+}
+
+.back-btn {
+    text-decoration: none;
+    color: #176ca5;
+    border: 1px solid #d9e5ef;
+    background: white;
+    padding: 11px 17px;
+    border-radius: 9px;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.profile-hero {
+    background: linear-gradient(115deg, #0a2540, #13527b);
+    border-radius: 17px;
+    padding: 30px;
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    color: white;
+    margin-bottom: 25px;
+}
+
+.doctor-avatar {
+    width: 75px;
+    height: 75px;
+    background: #d7f2fa;
+    color: #0a4266;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-size: 24px;
+    font-weight: 800;
+}
+
+.hero-info {
+    flex: 1;
+}
+
+.doctor-label {
+    color: #8bd6e8;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.4px;
+}
+
+.hero-info h2 {
+    font-family: 'Manrope', sans-serif;
+    margin: 7px 0;
+    font-size: 23px;
+    color: #ffffff !important;
+    font-weight: 800;
+}
+.hero-info p {
+    color: #d1dfeb;
+    font-size: 13px;
+    margin: 0 0 12px;
+}
+
+.profile-status {
+    display: inline-block;
+    padding: 5px 11px;
+    border-radius: 20px;
+    background: #d7f6e6;
+    color: #167346;
+    font-size: 10px;
+    font-weight: 800;
+}
+
+.doctor-id {
+    text-align: right;
+}
+
+.doctor-id span,
+.doctor-id strong {
+    display: block;
+}
+
+.doctor-id span {
+    color: #a8c5d9;
+    font-size: 10px;
+    margin-bottom: 7px;
+}
+
+.doctor-id strong {
+    font-size: 15px;
+}
+
+.profile-card {
+    background: white;
+    border: 1px solid #e8edf3;
+    border-radius: 14px;
+    padding: 26px 28px;
+    margin-bottom: 22px;
+    box-shadow: 0 5px 20px rgba(22, 48, 75, 0.035);
+}
+
+.section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 25px;
+}
+
+.section-heading h2 {
+    font-family: 'Manrope', sans-serif;
+    font-size: 18px;
+    margin: 0 0 7px;
+}
+
+.read-only,
+.editable {
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: .7px;
+    padding: 7px 10px;
+    border-radius: 20px;
+    white-space: nowrap;
+}
+
+.read-only {
+    color: #53728f;
+    background: #eef4fa;
+}
+
+.editable {
+    color: #137b67;
+    background: #e3f7f1;
+}
+
+.details-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+}
+
+.detail-item label,
+.form-group label {
+    display: block;
+    color: #8290a1;
+    font-size: 11px;
+    font-weight: 600;
+    margin-bottom: 9px;
+}
+
+.detail-item strong {
+    display: block;
+    color: #243c57;
+    font-size: 13px;
+    font-weight: 700;
+    overflow-wrap: anywhere;
+}
+
+.profile-form {
+    max-width: 760px;
+}
+
+.form-group {
+    margin-bottom: 22px;
+}
+
+.form-group input {
+    width: 100%;
+    height: 47px;
+    border: 1px solid #dce5ed;
+    border-radius: 8px;
+    outline: none;
+    padding: 0 14px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    color: #203750;
+    background: #fff;
+}
+
+.form-group input:focus {
+    border-color: #218bb7;
+    box-shadow: 0 0 0 3px rgba(33, 139, 183, .10);
+}
+
+.form-group small {
+    display: block;
+    color: #8996a5;
+    font-size: 11px;
+    margin-top: 8px;
+}
+
+.fee-input {
+    position: relative;
+}
+
+.fee-input span {
+    position: absolute;
+    top: 15px;
+    left: 14px;
+    color: #42627e;
+    font-weight: 700;
+}
+
+.fee-input input {
+    padding-left: 34px;
+}
+
+.primary-btn {
+    border: none;
+    border-radius: 8px;
+    padding: 13px 20px;
+    background: #087da8;
+    color: white;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.primary-btn:hover {
+    background: #075f83;
+    transform: translateY(-1px);
+}
+
+.alert {
+    padding: 14px 17px;
+    margin-bottom: 20px;
+    border-radius: 9px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.alert.success {
+    background: #e4f7ed;
+    color: #187346;
+    border: 1px solid #c4ead4;
+}
+
+.alert.error {
+    background: #fff0ef;
+    color: #bd3939;
+    border: 1px solid #f5d2d0;
+}
+
+.profile-footer {
+    text-align: center;
+    color: #98a5b4;
+    font-size: 11px;
+    padding: 25px 0;
+}
+
+@media(max-width: 700px) {
+
+    .profile-header {
+        padding: 17px 5%;
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .profile-nav {
+        gap: 15px;
+        flex-wrap: wrap;
+    }
+
+    .profile-nav a {
+        font-size: 11px;
+    }
+
+    .profile-container {
+        width: 92%;
+        margin-top: 25px;
+    }
+
+    .profile-heading {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .profile-hero {
+        flex-wrap: wrap;
+        padding: 22px;
+    }
+
+    .doctor-id {
+        width: 100%;
+        text-align: left;
+    }
+
+    .details-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .profile-card {
+        padding: 21px 18px;
+    }
+}

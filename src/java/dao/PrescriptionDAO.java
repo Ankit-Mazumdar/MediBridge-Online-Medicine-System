@@ -1,3 +1,4 @@
+
 package dao;
 
 import java.sql.Connection;
@@ -14,17 +15,11 @@ public class PrescriptionDAO {
     // Save prescription
     public boolean savePrescription(Prescription prescription) {
 
-//        String sql =
-//            "INSERT INTO PRESCRIPTION " +
-//            "(PRESCRIPTION_ID, APPOINTMENT_ID, DOCTOR_ID, PATIENT_NAME, " +
-//            "DIAGNOSIS, MEDICINES, INSTRUCTIONS, PRESCRIPTION_FILE) " +
-//            "VALUES (PRESCRIPTION_SEQ.NEXTVAL, ?, ?, ?, ?, ?, ?, ?)";
-
-String sql =
-    "INSERT INTO PRESCRIPTION " +
-    "(PRESCRIPTION_ID, APPOINTMENT_ID, DOCTOR_ID, PATIENT_NAME, " +
-    "DIAGNOSIS, MEDICINES, INSTRUCTIONS, PRESCRIPTION_FILE, CREATED_AT) " +
-    "VALUES (PRESCRIPTION_SEQ.NEXTVAL, ?, ?, ?, ?, ?, ?, ?, SYSTIMESTAMP)";
+        String sql =
+            "INSERT INTO PRESCRIPTION " +
+            "(PRESCRIPTION_ID, APPOINTMENT_ID, DOCTOR_ID, PATIENT_NAME, " +
+            "DIAGNOSIS, MEDICINES, INSTRUCTIONS, CREATED_AT) " +
+            "VALUES (PRESCRIPTION_SEQ.NEXTVAL, ?, ?, ?, ?, ?, ?, SYSTIMESTAMP)";
 
         try {
 
@@ -38,20 +33,12 @@ String sql =
             ps.setString(4, prescription.getDiagnosis());
             ps.setString(5, prescription.getMedicines());
             ps.setString(6, prescription.getInstructions());
-            ps.setString(7, prescription.getPrescriptionFile());
 
-//            int result = ps.executeUpdate();
+            System.out.println("PrescriptionDAO: Executing INSERT...");
 
-System.out.println("PrescriptionDAO: Executing INSERT...");
+            int result = ps.executeUpdate();
 
-int result = ps.executeUpdate();
-
-System.out.println("PrescriptionDAO: INSERT result = " + result);
-
-if (result > 0) {
-    con.commit();
-    System.out.println("PrescriptionDAO: COMMIT successful");
-}
+            System.out.println("PrescriptionDAO: INSERT result = " + result);
 
             ps.close();
             con.close();
@@ -76,7 +63,7 @@ if (result > 0) {
         String sql =
             "SELECT PRESCRIPTION_ID, APPOINTMENT_ID, DOCTOR_ID, " +
             "PATIENT_NAME, DIAGNOSIS, MEDICINES, INSTRUCTIONS, " +
-            "PRESCRIPTION_FILE, CREATED_AT " +
+            "CREATED_AT " +
             "FROM PRESCRIPTION " +
             "WHERE DOCTOR_ID = ? " +
             "ORDER BY CREATED_AT DESC";
@@ -118,9 +105,6 @@ if (result > 0) {
                 prescription.setInstructions(
                         rs.getString("INSTRUCTIONS"));
 
-                prescription.setPrescriptionFile(
-                        rs.getString("PRESCRIPTION_FILE"));
-
                 prescription.setCreatedAt(
                         rs.getTimestamp("CREATED_AT"));
 
@@ -150,7 +134,7 @@ if (result > 0) {
         String sql =
             "SELECT PRESCRIPTION_ID, APPOINTMENT_ID, DOCTOR_ID, " +
             "PATIENT_NAME, DIAGNOSIS, MEDICINES, INSTRUCTIONS, " +
-            "PRESCRIPTION_FILE, CREATED_AT " +
+            "CREATED_AT " +
             "FROM PRESCRIPTION " +
             "WHERE APPOINTMENT_ID = ? " +
             "AND DOCTOR_ID = ?";
@@ -191,9 +175,6 @@ if (result > 0) {
 
                 prescription.setInstructions(
                         rs.getString("INSTRUCTIONS"));
-
-                prescription.setPrescriptionFile(
-                        rs.getString("PRESCRIPTION_FILE"));
 
                 prescription.setCreatedAt(
                         rs.getTimestamp("CREATED_AT"));

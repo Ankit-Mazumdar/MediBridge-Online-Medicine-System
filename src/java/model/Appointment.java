@@ -15,6 +15,11 @@ public class Appointment {
     private String reason;
     private String status;
     private Timestamp createdAt;
+    
+    private String doctorName;
+    private String specialization;
+    
+    private String meetingRoom;
 
     // Default constructor
     public Appointment() {
@@ -101,4 +106,28 @@ public class Appointment {
     public void setCreatedAt(Timestamp createdAt) {
         this.createdAt = createdAt;
     }
+    
+    public String getDoctorName() {
+    return doctorName;
+}
+
+public void setDoctorName(String doctorName) {
+    this.doctorName = doctorName;
+}
+
+public String getSpecialization() {
+    return specialization;
+}
+
+public void setSpecialization(String specialization) {
+    this.specialization = specialization;
+}
+
+public String getMeetingRoom() {
+    return meetingRoom;
+}
+
+public void setMeetingRoom(String meetingRoom) {
+    this.meetingRoom = meetingRoom;
+}
 }
